@@ -1,10 +1,16 @@
 import React, {Component} from 'react';
 
-export default class App extends Component {
+import Info from './components/info';
+
+class App extends Component {
   render() {
     return (
-      // Add your component markup and other subcomponent references here.
-      <h1>Hello, World!</h1>
+        <div>
+            <h1>Hello, shafferotoaction!</h1>
+            <Info />
+        </div>
     );
   }
 }
+
+export default App;
