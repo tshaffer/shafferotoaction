@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 
-import Info from './components/info';
+import Photos from './components/photos';
 
 class App extends Component {
   render() {
     return (
-        <div>
-            <h1>Hello, shafferotoaction!</h1>
-            <Info />
+        <div className = "shafferotoContainer">
+            <Photos />
         </div>
     );
   }
