@@ -3,16 +3,25 @@
  */
 import React, { Component } from 'react';
 
-let Info = React.createClass({
+// const Info = React.createClass({
 
-// class Info extends Component {
+class Info extends Component {
 
-    getInitialState () {
-        return {
+    // getInitialState () {
+    //     return {
+    //         photos: [],
+    //         selectedPhoto: {}
+    //     };
+    // },
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
             photos: [],
             selectedPhoto: {}
         };
-    },
+    }
 
     componentDidMount() {
         console.log("componentDidMount invoked");
@@ -34,7 +43,7 @@ let Info = React.createClass({
                 console.error(getPhotosUrl, status, err.toString());
             }.bind(this)
         });
-    },
+    }
 
     render () {
         return (
@@ -60,6 +69,6 @@ let Info = React.createClass({
             </div>
         );
     }
-})
+}
 
 export default Info;
