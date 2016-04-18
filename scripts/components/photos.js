@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 
 import Info from './info';
+import PhotoGrid from './photo_grid';
 
 class Photos extends Component {
 
@@ -19,29 +20,15 @@ class Photos extends Component {
 
     render () {
         return (
-            <div className = "shafferotoContainer">
-                <h1>Hello, shafferotoaction!</h1>
-                <Info />
+            <div>
+                <div className="photosDiv">
+                    <PhotoGrid />
+                </div>
+                
+                <div className="metadata">
+                    <Info />
+                </div>
             </div>
-            // <div>
-                // <h4>Metadata</h4>
-                //
-                // <div className="photoMetadata">
-                //
-                //     <div>
-                //         <span className="leftColumn smallFont">Name:</span>
-                //         <span className="rightColumn smallFont">{this.state.selectedPhoto.title}</span>
-                //     </div>
-                //
-                //     <div>
-                //         <span className="leftColumn smallFont">Dimensions:</span>
-                //     </div>
-                //
-                //     <div>
-                //         <span className="leftColumn smallFont">Date taken:</span>
-                //     </div>
-                // </div>
-            // </div>
         );
     }
 }

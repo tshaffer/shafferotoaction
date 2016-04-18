@@ -2,6 +2,16 @@
     width: 1400px;
 }
 
+.photosDiv {
+    flex: 3;
+    overflow-y: scroll;
+}
+
+.metadata {
+    flex: 1;
+}
+
+
 
 
 
