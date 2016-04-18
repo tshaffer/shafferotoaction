@@ -4,6 +4,21 @@
     display: inline-block;
 }
 
+.rightColumn {
+    width: 132px;
+    text-align: left;
+    display: inline-block;
+    padding-left: 2px;
+}
+
 .smallFont {
     font-size: small;
 }
+
+.mediumFont {
+    font-size: medium;
+}
+.largeFont {
+    font-size: large;
+}
+
