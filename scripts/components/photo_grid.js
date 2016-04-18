@@ -8,6 +8,8 @@ class PhotoGrid extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            photos: [],
+            selectedPhoto: {}
         };
     }
 
@@ -16,6 +18,8 @@ class PhotoGrid extends Component {
     }
 
     render () {
+        var photoInfo = this.props.photoInfo;
+
         return (
             <div>
                 <h1>Hello, shafferotoaction!</h1>

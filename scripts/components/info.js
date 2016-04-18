@@ -14,38 +14,23 @@ class Info extends Component {
     //     };
     // },
 
-
     constructor(props) {
         super(props);
         this.state = {
-            photos: [],
-            selectedPhoto: {}
         };
     }
 
     componentDidMount() {
         console.log("componentDidMount invoked");
-
-        const url = "http://localhost:3000/";
-        const getPhotosUrl = url + "getPhotos";
-
-        $.get({
-            url: getPhotosUrl,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                console.log("number of photos retrieved is: " + data.photos.length.toString());
-                this.setState({photos: data.photos});
-                this.setState({selectedPhoto: data.photos[1]});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log("errors retrieving photos");
-                console.error(getPhotosUrl, status, err.toString());
-            }.bind(this)
-        });
     }
 
     render () {
+
+        console.log("info.js::render");
+        this.selectedPhotoTitle = "none";
+        if (this.props.photoInfo.photos.length > 0) {
+            this.selectedPhotoTitle = this.props.photoInfo.photos[0].title;
+        }
         return (
             <div>
                 <h4>Metadata</h4>
@@ -54,7 +39,7 @@ class Info extends Component {
 
                     <div>
                         <span className="leftColumn smallFont">Name:</span>
-                        <span className="rightColumn smallFont">{this.state.selectedPhoto.title}</span>
+                        <span className="rightColumn smallFont">{this.selectedPhotoTitle}</span>
                     </div>
 
                     <div>
