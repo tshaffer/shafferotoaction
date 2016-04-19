@@ -23,9 +23,9 @@ class PhotoGrid extends Component {
         var photoNodes = this.props.photoInfo.photos.map(function(photo) {
             self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
             return (
-                <li className="flex-item photoThumbsDiv" key={photo.id} >
-                    <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width="100"
-                         height="100" />
+                <li className="flex-item photoThumbsDiv" key={photo.dbId} >
+                    <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width={photo.width}
+                         height={photo.height} />
                 </li>
             );
         });
