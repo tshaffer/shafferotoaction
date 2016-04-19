@@ -5,7 +5,7 @@ import Photos from './components/photos';
 class App extends Component {
   render() {
     return (
-        <div className = "shafferotoContainer">
+        <div className = "container shafferotoContainer">
             <Photos />
         </div>
     );

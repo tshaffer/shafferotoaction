@@ -31,11 +31,11 @@ class PhotoGrid extends Component {
         });
 
         return (
-            <ul className="flex-container wrap">
-                <div className="photosDiv">
+            <div className="photosDiv">
+                <ul className="flex-container wrap">
                     {photoNodes}
-                </div>
-            </ul>
+                </ul>
+            </div>
         );
     }
 }
