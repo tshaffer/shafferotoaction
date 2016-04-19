@@ -40,7 +40,7 @@ class Photos extends Component {
 
     render () {
         return (
-            <div>
+            <div className="photoPageContainer">
                 <div className="photosDiv">
                     <PhotoGrid photoInfo = {this.state}/>
                 </div>

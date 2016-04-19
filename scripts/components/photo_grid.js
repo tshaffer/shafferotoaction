@@ -18,12 +18,24 @@ class PhotoGrid extends Component {
     }
 
     render () {
-        var photoInfo = this.props.photoInfo;
+
+        let self = this;
+        var photoNodes = this.props.photoInfo.photos.map(function(photo) {
+            self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
+            return (
+                <li className="flex-item photoThumbsDiv" key={photo.id} >
+                    <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width="100"
+                         height="100" />
+                </li>
+            );
+        });
 
         return (
-            <div>
-                <h1>Hello, shafferotoaction!</h1>
-            </div>
+            <ul className="flex-container wrap">
+                <div className="photosDiv">
+                    {photoNodes}
+                </div>
+            </ul>
         );
     }
 }
