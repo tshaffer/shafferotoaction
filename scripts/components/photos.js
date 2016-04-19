@@ -12,7 +12,8 @@ class Photos extends Component {
         super(props);
         this.state = {
             photos: [],
-            selectedPhoto: {}
+            selectedPhoto: {},
+            divStyle: {}
         };
     }
 
@@ -72,8 +73,23 @@ class Photos extends Component {
         this.setState({selectedPhoto: photos[0]});
     }
 
+    handleResize(e) {
+        let divStyle = {
+            height: window.innerHeight - 100
+        };
+        this.setState({divStyle: divStyle});
+        window.addEventListener('resize', this.handleResize.bind(this));
+    }
+
     componentDidMount() {
         console.log("componentDidMount invoked");
+
+        // // $scope.photoPageContainerHeight = window.innerHeight - 100;
+        window.addEventListener('resize', this.handleResize.bind(this));
+        let divStyle = {
+            height: window.innerHeight - 100
+        };
+        this.setState({divStyle: divStyle});
 
         const url = "http://localhost:3000/";
         const getPhotosUrl = url + "getPhotos";
@@ -96,8 +112,13 @@ class Photos extends Component {
     }
 
     render () {
+        // <div className="photoPageContainer" style={{height: window.innerHeight - 100}}>
+        // <div className="photoPageContainer" style={this.state.divStyle}>
+        // let divStyle = {
+        //     height: window.innerHeight - 100
+        // };
         return (
-            <div className="photoPageContainer">
+            <div className="photoPageContainer" style={this.state.divStyle}>
                 <div className="photosDiv">
                     <PhotoGrid photoInfo = {this.state}/>
                 </div>
