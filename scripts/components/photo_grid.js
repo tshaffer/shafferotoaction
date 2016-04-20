@@ -21,6 +21,9 @@ class PhotoGrid extends Component {
     photoSelected(event) {
         console.log("photo selected");
         this.selectedPhoto = this.photosById[event.target.id];
+        console.log("invoke onSelectPhoto");
+        this.props.onSelectPhoto(this.selectedPhoto);
+
     }
 
     render () {

@@ -81,6 +81,12 @@ class Photos extends Component {
         window.addEventListener('resize', this.handleResize.bind(this));
     }
 
+    handleSelectPhoto(photo)
+    {
+        console.log("handleSelectPhoto invoked");
+        this.setState({selectedPhoto: photo});
+    }
+
     componentDidMount() {
         console.log("componentDidMount invoked");
 
@@ -101,8 +107,6 @@ class Photos extends Component {
             success: function(data) {
                 console.log("number of photos retrieved is: " + data.photos.length.toString());
                 this.updatePhotos(data.photos);
-                // this.setState({photos: data.photos});
-                // this.setState({selectedPhoto: data.photos[0]});
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log("errors retrieving photos");
@@ -120,7 +124,7 @@ class Photos extends Component {
         return (
             <div className="photoPageContainer" style={this.state.divStyle}>
                 <div className="photosDiv">
-                    <PhotoGrid photoInfo = {this.state}/>
+                    <PhotoGrid onSelectPhoto={this.handleSelectPhoto.bind(this)} photoInfo = {this.state}/>
                 </div>
                 
                 <div className="metadata">
