@@ -35,7 +35,10 @@ class Info extends Component {
             this.selectedPhotoTitle = selectedPhoto.title;
             this.selectedPhotoWidth = selectedPhoto.width;
             this.selectedPhotoHeight = selectedPhoto.height;
-            this.selectedPhotoDateTaken = selectedPhoto.dateTaken;
+
+            let dt = new Date(selectedPhoto.dateTaken);
+            this.selectedPhotoDateTaken = dt.toString("M/d/yyyy hh:mm tt");
+
         }
         return (
             <div>
