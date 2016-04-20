@@ -30,15 +30,9 @@ class Info extends Component {
         this.selectedPhotoWidth = "";
         this.selectedPhotoHeight = "";
         this.selectedPhotoDateTaken = "";
-        if (this.props.photoInfo.photos.length > 0) {
+        if (this.props.photoInfo.selectedPhoto != null) {
 
-            var selectedPhoto = null;
-            if (typeof this.props.photoInfo.selectedPhoto == "object") {
-                selectedPhoto = this.props.photoInfo.selectedPhoto;
-            }
-            else {
-                selectedPhoto = this.props.photoInfo.photos[0];
-            }
+            let selectedPhoto = this.props.photoInfo.selectedPhoto;
             this.selectedPhotoTitle = selectedPhoto.title;
             this.selectedPhotoWidth = selectedPhoto.width;
             this.selectedPhotoHeight = selectedPhoto.height;

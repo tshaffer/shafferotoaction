@@ -12,7 +12,7 @@ class Photos extends Component {
         super(props);
         this.state = {
             photos: [],
-            selectedPhoto: {},
+            selectedPhoto: null,
             divStyle: {}
         };
     }
@@ -69,8 +69,10 @@ class Photos extends Component {
             photos.push(photo);
         });
 
-        this.setState({photos: photos});
-        this.setState({selectedPhoto: photos[0]});
+        if (photos.length > 0) {
+            this.setState({photos: photos});
+            this.setState({selectedPhoto: photos[0]});
+        }
     }
 
     handleResize(e) {
