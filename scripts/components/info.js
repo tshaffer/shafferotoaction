@@ -26,10 +26,16 @@ class Info extends Component {
 
     render () {
 
-        console.log("info.js::render");
         this.selectedPhotoTitle = "none";
+        this.selectedPhotoWidth = "";
+        this.selectedPhotoHeight = "";
+        this.selectedPhotoDateTaken = "";
         if (this.props.photoInfo.photos.length > 0) {
-            this.selectedPhotoTitle = this.props.photoInfo.photos[0].title;
+            var selectedPhoto = this.props.photoInfo.photos[0];
+            this.selectedPhotoTitle = selectedPhoto.title;
+            this.selectedPhotoWidth = selectedPhoto.width;
+            this.selectedPhotoHeight = selectedPhoto.height;
+            this.selectedPhotoDateTaken = selectedPhoto.dateTaken;
         }
         return (
             <div>
@@ -44,10 +50,12 @@ class Info extends Component {
 
                     <div>
                         <span className="leftColumn smallFont">Dimensions:</span>
+                        <span className="rightColumn smallFont">{this.selectedPhotoWidth}x{this.selectedPhotoHeight}</span>
                     </div>
 
                     <div>
                         <span className="leftColumn smallFont">Date taken:</span>
+                        <span className="rightColumn smallFont">{this.selectedPhotoDateTaken}</span>
                     </div>
                 </div>
 
