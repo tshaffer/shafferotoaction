@@ -11,10 +11,16 @@ class PhotoGrid extends Component {
             photos: [],
             selectedPhoto: {}
         };
+        this.photosById = {};
     }
 
     componentDidMount() {
         console.log("componentDidMount invoked");
+    }
+
+    photoSelected(event) {
+        console.log("photo selected");
+        this.selectedPhoto = this.photosById[event.target.id];
     }
 
     render () {
@@ -22,10 +28,11 @@ class PhotoGrid extends Component {
         let self = this;
         var photoNodes = this.props.photoInfo.photos.map(function(photo) {
             self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
+            self.photosById[photo.dbId] = photo;
             return (
                 <li className="flex-item photoThumbsDiv" key={photo.dbId} >
                     <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width={photo.width}
-                         height={photo.height} />
+                         height={photo.height} onClick={self.photoSelected.bind(self)} />
                 </li>
             );
         });
@@ -38,6 +45,8 @@ class PhotoGrid extends Component {
             </div>
         );
     }
+
+
 }
 
 export default PhotoGrid;
