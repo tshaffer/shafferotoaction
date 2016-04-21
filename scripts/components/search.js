@@ -38,6 +38,10 @@ class Search extends Component {
         console.log("this.addedTag = " + this.addedTag);
     }
 
+    onDateQueryTypeChanged(event) {
+        console.log("onDateQueryTypeChanged invoked");
+    }
+
     addTagToQuery () {
 
         console.log("addTagFromQuery invoked");
@@ -95,6 +99,33 @@ class Search extends Component {
                     </div>
 
                 </div>
+
+                <h5 className="metadataSubheading">Dates</h5>
+
+                <div className="datesSubsection">
+                    <div>
+                        <label className="smallFont">
+                            <input type="radio" className="dateQueryTypeRadioFirst" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="none"/>None
+                        </label>
+
+                        <label className="smallFont">
+                            <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="before" />Before
+                        </label>
+
+                        <label className="smallFont">
+                            <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="after" />After
+                        </label>
+
+                        <label className="smallFont">
+                            <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="on" />On
+                        </label>
+
+                        <label className="smallFont">
+                            <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="between" />Between
+                        </label>
+                    </div>
+                </div>
+                
             </div>
         )
     }

@@ -123,4 +123,10 @@ button:focus { outline: none; }
     background: none;
 }
 
+.dateQueryTypeRadioFirst {
+    margin: 0px 6px 0px 0px;
+}
 
+.dateQueryTypeRadio {
+    margin: 0px 6px 0px 6px;
+}
