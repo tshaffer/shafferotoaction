@@ -11,7 +11,9 @@ class Search extends Component {
             searchExpression: "",
             tagsInQuery: [],
             tagQueryOperator: 'OR',
-            dateValue: "2016-04-18"
+            dateValue: "2016-04-17",
+            afterDateValue: "2016-04-19",
+            onDateValue: "2018-04-18"
         };
     }
 
@@ -35,7 +37,7 @@ class Search extends Component {
     formatDate(date) {
 
         var month = this.prependZero(date.getMonth() + 1).toString();
-        var dayInMonth = date.getDate().toString();
+        var dayInMonth = (date.getDate()).toString();
         return date.getFullYear().toString() + "-" + this.prependZero(month) + "-" + this.prependZero(dayInMonth);
     }
     
@@ -89,7 +91,20 @@ class Search extends Component {
     }
 
     onBeforeDateChanged(event) {
-        console.log("onBeforeDateChanged");
+        console.log("onDateChanged");
+
+        let actualDate = event.target.valueAsDate.addDays(1);
+        let formattedDate = this.formatDate(actualDate);
+        this.setState({dateValue: formattedDate});
+    }
+
+    onAfterDateChanged(event) {
+        console.log("onDateChanged");
+        this.setState({dateValue: event.target.valueAsDate});
+    }
+
+    onOnDateChanged(event) {
+        console.log("onDateChanged");
         this.setState({dateValue: event.target.valueAsDate});
     }
 
@@ -151,9 +166,20 @@ class Search extends Component {
                     </div>
 
                     <div id="beforeDateDiv">
-                        <span className="beforeDateLabel">Before</span>
-                        <input className="smallFont beforeDateInput" type="date" id="beforeDate" onChange={this.onBeforeDateChanged.bind(this)} value={this.state.dateValue}/>
+                        <span className="dateLabel">Before</span>
+                        <input className="smallFont dateInput" type="date" id="beforeDate" onChange={this.onBeforeDateChanged.bind(this)} value={this.state.dateValue}/>
                     </div>
+
+                    <div id="afterDateDiv">
+                        <span className="dateLabel">After</span>
+                        <input className="smallFont dateInput" type="date" id="afterDate" onChange={this.onAfterDateChanged.bind(this)} value={this.state.afterDateValue}/>
+                    </div>
+
+                    <div id="onDateDiv">
+                        <span className="dateLabel">On</span>
+                        <input className="smallFont dateInput" type="date" id="onDate" onChange={this.onOnDateChanged.bind(this)} value={this.state.onDateValue}/>
+                    </div>
+
                 </div>
                 
             </div>
