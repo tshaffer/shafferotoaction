@@ -58,7 +58,36 @@ body {
     flex: 1;
 }
 
+.metadataSubheading {
+    margin-bottom: 2px;
+}
 
+.photoMetadata {
+}
+
+.tagsSection {
+    margin-left: 16px;
+}
+
+.tagsList {
+    max-height: 100px;
+    overflow-y: scroll;
+    margin: 0;
+    padding: 0;
+}
+
+.searchSection {
+    margin-left: 16px;
+}
+
+.tagsSubsection {
+    margin-left: 16px;
+}
+
+.datesSubsection {
+    margin-left: 16px;
+    margin-top: -4px;
+}
 
 
 
@@ -85,4 +114,13 @@ body {
 .largeFont {
     font-size: large;
 }
+
+button:focus { outline: none; }
+
+.plainButton {
+    padding: 0;
+    border: none;
+    background: none;
+}
+
 

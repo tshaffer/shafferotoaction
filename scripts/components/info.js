@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 
 import Metadata from './metadata';
+import Search from './search';
 
 // const Info = React.createClass({
 
@@ -29,7 +30,10 @@ class Info extends Component {
     render () {
 
         return (
-            <Metadata  photoInfo = {this.props.photoInfo}/>
+            <div>
+                <Metadata  photoInfo = {this.props.photoInfo}/>
+                <Search  photoInfo = {this.props.photoInfo}/>
+            </div>
         );
     }
 }

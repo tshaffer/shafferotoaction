@@ -29,7 +29,7 @@ class PhotoGrid extends Component {
     render () {
 
         let self = this;
-        var photoNodes = this.props.photoInfo.photos.map(function(photo) {
+        let photoNodes = this.props.photoInfo.photos.map(function(photo) {
             self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
             self.photosById[photo.dbId] = photo;
             return (
