@@ -11,6 +11,7 @@ class Search extends Component {
             searchExpression: "",
             tagsInQuery: [],
             tagQueryOperator: 'OR',
+            dateQueryType: 'none',
             dateValue: "2016-04-17",
         };
     }
@@ -61,6 +62,7 @@ class Search extends Component {
 
     onDateQueryTypeChanged(event) {
         console.log("onDateQueryTypeChanged invoked");
+        this.setState({dateQueryType: event.target.value});
     }
 
     addTagToQuery () {
@@ -96,6 +98,33 @@ class Search extends Component {
         this.setState({dateValue: formattedDate});
     }
 
+    beforeDateDiv() {
+        return (
+            <div id="beforeDateDiv">
+                <span className="dateLabel">Before</span>
+                <input className="smallFont dateInput" type="date" id="beforeDate" onChange={this.onDateChanged.bind(this)} value={this.state.dateValue}/>
+            </div>
+        );
+    }
+
+    afterDateDiv() {
+        return (
+            <div id="afterDateDiv">
+                <span className="dateLabel">After</span>
+                <input className="smallFont dateInput" type="date" id="afterDate" onChange={this.onDateChanged.bind(this)} value={this.state.dateValue}/>
+            </div>
+        );
+    }
+    
+    onDateDiv() {
+        return (
+            <div id="onDateDiv">
+                <span className="dateLabel">On</span>
+                <input className="smallFont dateInput" type="date" id="onDate" onChange={this.onDateChanged.bind(this)} value={this.state.dateValue}/>
+            </div>             
+        );
+    }
+    
     render () {
 
         let tags = [];
@@ -133,7 +162,7 @@ class Search extends Component {
                 <div className="datesSubsection">
                     <div>
                         <label className="smallFont">
-                            <input type="radio" className="dateQueryTypeRadioFirst" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="none"/>None
+                            <input type="radio" className="dateQueryTypeRadioFirst" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="none" checked="true"/>None
                         </label>
 
                         <label className="smallFont">
@@ -153,21 +182,10 @@ class Search extends Component {
                         </label>
                     </div>
 
-                    <div id="beforeDateDiv">
-                        <span className="dateLabel">Before</span>
-                        <input className="smallFont dateInput" type="date" id="beforeDate" onChange={this.onDateChanged.bind(this)} value={this.state.dateValue}/>
-                    </div>
-
-                    <div id="afterDateDiv">
-                        <span className="dateLabel">After</span>
-                        <input className="smallFont dateInput" type="date" id="afterDate" onChange={this.onDateChanged.bind(this)} value={this.state.dateValue}/>
-                    </div>
-
-                    <div id="onDateDiv">
-                        <span className="dateLabel">On</span>
-                        <input className="smallFont dateInput" type="date" id="onDate" onChange={this.onDateChanged.bind(this)} value={this.state.dateValue}/>
-                    </div>
-
+                    { this.state.dateQueryType == 'before' ? this.beforeDateDiv() : null }
+                    { this.state.dateQueryType == 'after' ? this.afterDateDiv() : null }
+                    { this.state.dateQueryType == 'on' ? this.onDateDiv() : null }
+                    
                 </div>
                 
             </div>
