@@ -10,14 +10,35 @@ class Search extends Component {
         this.state = {
             searchExpression: "",
             tagsInQuery: [],
-            tagQueryOperator: 'OR'
+            tagQueryOperator: 'OR',
+            dateValue: "2016-04-18"
         };
     }
 
     componentDidMount() {
         console.log("search componentDidMount invoked");
+
+        var today = new Date();
+        // console.log("today is " + today.toDateString());
+        // let formattedDate = today.getFullYear().toString() + "-0" + (today.getMonth() + 1).toString() + "-" + today.getDate().toString();
+        let formattedDate = this.formatDate(today);
+        this.setState({dateValue: formattedDate});
     }
 
+    prependZero(str) {
+        if (str.length == 1) {
+            return "0" + str;
+        }
+        return str;
+    }
+
+    formatDate(date) {
+
+        var month = this.prependZero(date.getMonth() + 1).toString();
+        var dayInMonth = date.getDate().toString();
+        return date.getFullYear().toString() + "-" + this.prependZero(month) + "-" + this.prependZero(dayInMonth);
+    }
+    
     buildSearchExpression() {
 
         var self = this;
@@ -67,6 +88,10 @@ class Search extends Component {
         this.buildSearchExpression();
     }
 
+    onBeforeDateChanged(event) {
+        console.log("onBeforeDateChanged");
+        this.setState({dateValue: event.target.valueAsDate});
+    }
 
     render () {
 
@@ -123,6 +148,11 @@ class Search extends Component {
                         <label className="smallFont">
                             <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="between" />Between
                         </label>
+                    </div>
+
+                    <div id="beforeDateDiv">
+                        <span className="beforeDateLabel">Before</span>
+                        <input className="smallFont beforeDateInput" type="date" id="beforeDate" onChange={this.onBeforeDateChanged.bind(this)} value={this.state.dateValue}/>
                     </div>
                 </div>
                 

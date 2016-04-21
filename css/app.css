@@ -130,3 +130,13 @@ button:focus { outline: none; }
 .dateQueryTypeRadio {
     margin: 0px 6px 0px 6px;
 }
+
+.beforeDateLabel {
+    display: inline-block;
+    font-size: small;
+    width: 40px;
+}
+
+.beforeDateInput {
+    width: 130px;
+}
