@@ -12,8 +12,6 @@ class Search extends Component {
             tagsInQuery: [],
             tagQueryOperator: 'OR',
             dateValue: "2016-04-17",
-            afterDateValue: "2016-04-19",
-            onDateValue: "2018-04-18"
         };
     }
 
@@ -90,22 +88,12 @@ class Search extends Component {
         this.buildSearchExpression();
     }
 
-    onBeforeDateChanged(event) {
+    onDateChanged(event) {
         console.log("onDateChanged");
 
         let actualDate = event.target.valueAsDate.addDays(1);
         let formattedDate = this.formatDate(actualDate);
         this.setState({dateValue: formattedDate});
-    }
-
-    onAfterDateChanged(event) {
-        console.log("onDateChanged");
-        this.setState({dateValue: event.target.valueAsDate});
-    }
-
-    onOnDateChanged(event) {
-        console.log("onDateChanged");
-        this.setState({dateValue: event.target.valueAsDate});
     }
 
     render () {
@@ -167,17 +155,17 @@ class Search extends Component {
 
                     <div id="beforeDateDiv">
                         <span className="dateLabel">Before</span>
-                        <input className="smallFont dateInput" type="date" id="beforeDate" onChange={this.onBeforeDateChanged.bind(this)} value={this.state.dateValue}/>
+                        <input className="smallFont dateInput" type="date" id="beforeDate" onChange={this.onDateChanged.bind(this)} value={this.state.dateValue}/>
                     </div>
 
                     <div id="afterDateDiv">
                         <span className="dateLabel">After</span>
-                        <input className="smallFont dateInput" type="date" id="afterDate" onChange={this.onAfterDateChanged.bind(this)} value={this.state.afterDateValue}/>
+                        <input className="smallFont dateInput" type="date" id="afterDate" onChange={this.onDateChanged.bind(this)} value={this.state.dateValue}/>
                     </div>
 
                     <div id="onDateDiv">
                         <span className="dateLabel">On</span>
-                        <input className="smallFont dateInput" type="date" id="onDate" onChange={this.onOnDateChanged.bind(this)} value={this.state.onDateValue}/>
+                        <input className="smallFont dateInput" type="date" id="onDate" onChange={this.onDateChanged.bind(this)} value={this.state.dateValue}/>
                     </div>
 
                 </div>
