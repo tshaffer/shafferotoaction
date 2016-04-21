@@ -140,3 +140,13 @@ button:focus { outline: none; }
 .dateInput {
     width: 130px;
 }
+
+.dateLabelBetween {
+    display: inline-block;
+    font-size: small;
+}
+
+.width130 {
+    width: 130px;
+}
+

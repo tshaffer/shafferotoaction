@@ -13,6 +13,8 @@ class Search extends Component {
             tagQueryOperator: 'OR',
             dateQueryType: 'none',
             dateValue: "2016-04-17",
+            startDateValue: "2016-04-17",
+            endDateValue: "2016-04-19",
         };
     }
 
@@ -98,6 +100,22 @@ class Search extends Component {
         this.setState({dateValue: formattedDate});
     }
 
+    onStartDateChanged(event) {
+        console.log("onStartDateChanged");
+
+        let actualDate = event.target.valueAsDate.addDays(1);
+        let formattedDate = this.formatDate(actualDate);
+        this.setState({startDateValue: formattedDate});
+    }
+
+    onEndDateChanged(event) {
+        console.log("onEndDateChanged");
+
+        let actualDate = event.target.valueAsDate.addDays(1);
+        let formattedDate = this.formatDate(actualDate);
+        this.setState({endDateValue: formattedDate});
+    }
+
     beforeDateDiv() {
         return (
             <div id="beforeDateDiv">
@@ -124,7 +142,18 @@ class Search extends Component {
             </div>             
         );
     }
-    
+
+    betweenDateDiv() {
+        return (
+            <div id="betweenDateDiv">
+                <span className="dateLabelBetween">Between</span>
+                <input className="smallFont width130" type="date" id="startDate" onChange={this.onStartDateChanged.bind(this)} value={this.state.startDateValue}/>
+                <span className="dateLabelBetween">and</span>
+                <input className="smallFont width130" type="date" id="endDate"  onChange={this.onEndDateChanged.bind(this)} value={this.state.endDateValue}/>
+            </div>
+        );
+    }
+
     render () {
 
         let tags = [];
@@ -162,7 +191,7 @@ class Search extends Component {
                 <div className="datesSubsection">
                     <div>
                         <label className="smallFont">
-                            <input type="radio" className="dateQueryTypeRadioFirst" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="none" checked="true"/>None
+                            <input type="radio" className="dateQueryTypeRadioFirst" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="none" />None
                         </label>
 
                         <label className="smallFont">
@@ -185,7 +214,8 @@ class Search extends Component {
                     { this.state.dateQueryType == 'before' ? this.beforeDateDiv() : null }
                     { this.state.dateQueryType == 'after' ? this.afterDateDiv() : null }
                     { this.state.dateQueryType == 'on' ? this.onDateDiv() : null }
-                    
+                    { this.state.dateQueryType == 'between' ? this.betweenDateDiv() : null }
+
                 </div>
                 
             </div>
