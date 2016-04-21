@@ -8,9 +8,10 @@ class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            searchExpression: "",
+            tagsInQuery: [],
+            tagQueryOperator: 'OR'
         };
-
-        this.searchExpression = "";
     }
 
     componentDidMount() {
@@ -18,13 +19,17 @@ class Search extends Component {
     }
 
     buildSearchExpression() {
-        this.searchExpression = "";
-        this.tagsInQuery.forEach(function(tag, index) {
+
+        var self = this;
+
+        let searchExpression = "";
+        this.state.tagsInQuery.forEach(function(tag, index) {
             if (index != 0) {
-                this.searchExpression += " " + this.tagQueryOperator + " ";
+                searchExpression += " " + self.state.tagQueryOperator + " ";
             }
-            this.searchExpression += tag.tag;
+            searchExpression += tag.tag;
         });
+        this.setState({ searchExpression: searchExpression });
     }
 
     onTagSelected(event) {
@@ -37,10 +42,14 @@ class Search extends Component {
 
         console.log("addTagFromQuery invoked");
 
+        let tagsInQuery = this.state.tagsInQuery;
+
         if (typeof(this.addedTag) != 'undefined') {
             var tagInQuery = {};
             tagInQuery.tag = this.addedTag;
-            this.tagsInQuery.push(tagInQuery);
+            tagsInQuery.push(tagInQuery);
+
+            this.setState({tagsInQuery: tagsInQuery});
 
             this.buildSearchExpression();
         }
@@ -59,6 +68,7 @@ class Search extends Component {
 
         let tags = [];
         tags.push({ name: "Mom", id: 0}, { name: "Rachel", id: 1}, { name: "Sam", id: 2}, {name: "Joel", id: 3});
+        this.addedTag = tags[0];
 
         let selectOptions = tags.map(function(tag, index) {
             return (
@@ -71,15 +81,15 @@ class Search extends Component {
                 <h4>Search</h4>
 
                 <div className="searchSection">
-                    <span className="smallFont">{this.searchExpression}</span>
+                    <span className="smallFont">{this.state.searchExpression}</span>
 
                     <h5 className="metadataSubheading">Tags</h5>
                     
                     <div className="tagsSubsection">
                         <div>
                             <select defaultValue={tags[0].name} id="tags" onChange={this.onTagSelected.bind(this)}>{selectOptions}</select>
-                            <button className="plainButton" type="button" onClick={this.addTagToQuery}>+</button>
-                            <button className="plainButton" type="button" onClick={this.removeTagFromQuery}>-</button>
+                            <button className="plainButton" type="button" onClick={this.addTagToQuery.bind(this)}>+</button>
+                            <button className="plainButton" type="button" onClick={this.removeTagFromQuery.bind(this)}>-</button>
                         </div>
 
                     </div>
