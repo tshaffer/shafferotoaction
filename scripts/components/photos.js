@@ -128,14 +128,10 @@ class Photos extends Component {
         const url = "http://localhost:3000/";
         const queryPhotosUrl = url + "queryPhotos";
 
-        // var promise = $http.get(url, {
-        //     params: { querySpec: querySpec }
-        // });
-        // return promise;
-
-        let query = { querySpec: querySpec };
-
-        debugger;
+        // TODO - passing the object would have worked except the server code is expecting a string, so the following nonsense was done for backwards compatibility
+        // let query = { querySpec: querySpec };
+        let queryStr = JSON.stringify(querySpec);
+        let query = { querySpec: queryStr };
 
         return new Promise(function(resolve, reject) {
 
@@ -145,7 +141,6 @@ class Photos extends Component {
                 success: function(data) {
                     console.log("queryPhotos: number of photos retrieved is: " + data.photos.length.toString());
                     resolve(data.photos);
-                    // this.updatePhotos(data.photos);
                 }.bind(this),
                 error: function(xhr, status, err) {
                     console.log("errors retrieving photos in queryPhotos");
@@ -154,40 +149,6 @@ class Photos extends Component {
                 }.bind(this)
             });
         });
-
-
-        // $.get({
-        //     url: queryPhotosUrl,
-        //     data: query,
-        //     success: function(data) {
-        //         console.log("queryPhotos: number of photos retrieved is: " + data.photos.length.toString());
-        //         // this.updatePhotos(data.photos);
-        //     }.bind(this),
-        //     error: function(xhr, status, err) {
-        //         console.log("errors retrieving photos in queryPhotos");
-        //         console.error(getPhotosUrl, status, err.toString());
-        //     }.bind(this)
-        // });
-
-        // let promise = $.get(
-        //     queryPhotosUrl,
-        //     query,
-        //     'json',
-        //     function(data) {
-        //         // console.log("number of photos retrieved is: " + data.photos.length.toString());
-        //         // this.updatePhotos(data.photos);
-        //         debugger;
-        //         resolve(data);
-        //     }.bind(this),
-        //     function(xhr, status, err) {
-        //         debugger;
-        //         // console.log("errors retrieving photos");
-        //         // console.error(getPhotosUrl, status, err.toString());
-        //         reject();
-        // });
-        
-        // return promise;
-
     }
 
 
