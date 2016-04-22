@@ -91,8 +91,7 @@ class Photos extends Component {
     handleQueryPhotos(querySpec) {
         console.log("handleQueryPhotos invoked");
         console.log("querySpec=" + querySpec);
-        let promise = this.queryPhotos(querySpec);
-        return promise;
+        this.queryPhotos(querySpec);
     }
     
     componentDidMount() {
@@ -132,22 +131,18 @@ class Photos extends Component {
         // let query = { querySpec: querySpec };
         let queryStr = JSON.stringify(querySpec);
         let query = { querySpec: queryStr };
-
-        return new Promise(function(resolve, reject) {
-
-            $.get({
-                url: queryPhotosUrl,
-                data: query,
-                success: function(data) {
-                    console.log("queryPhotos: number of photos retrieved is: " + data.photos.length.toString());
-                    resolve(data.photos);
-                }.bind(this),
-                error: function(xhr, status, err) {
-                    console.log("errors retrieving photos in queryPhotos");
-                    console.error(getPhotosUrl, status, err.toString());
-                    reject();
-                }.bind(this)
-            });
+        
+        $.get({
+            url: queryPhotosUrl,
+            data: query,
+            success: function(data) {
+                console.log("queryPhotos: number of photos retrieved is: " + data.photos.length.toString());
+                this.updatePhotos(data.photos);
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log("errors retrieving photos in queryPhotos");
+                console.error(getPhotosUrl, status, err.toString());
+            }.bind(this)
         });
     }
 

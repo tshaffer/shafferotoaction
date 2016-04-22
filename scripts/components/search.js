@@ -114,28 +114,7 @@ class Search extends Component {
         var querySpec = this.buildQuerySpec();
         querySpec.tagsInQuery = this.state.tagsInQuery;
 
-        // this.props.onQueryPhotos(querySpec);
-        let promise = this.props.onQueryPhotos(querySpec);
-        promise.then( function(photos) {
-           debugger;
-        });
-        // var queryPhotosPromise = $shafferotoServerService.queryPhotos(querySpec);
-        // queryPhotosPromise.then(function (result) {
-        //
-        //     console.log("queryPhotos successful");
-        //
-        //     $scope.photos = [];
-        //     $scope.baseUrl = $shafferotoServerService.getBaseUrl() + "photos/";
-        //
-        //     result.data.photos.forEach(function (dbPhoto) {
-        //
-        //         var photo = $scope.getPhotoFromDBPhoto(dbPhoto);
-        //         $scope.photos.push(photo);
-        //         photosById[dbPhoto.id] = photo;
-        //     });
-        //
-        //     // $scope.$broadcast("imagesInitialized");
-        // });
+        this.props.onQueryPhotos(querySpec);
     }
 
     onDateChanged(event) {
