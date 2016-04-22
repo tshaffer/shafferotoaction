@@ -111,13 +111,14 @@ class Search extends Component {
 
         console.log("performSearch");
 
-        debugger;
-
         var querySpec = this.buildQuerySpec();
         querySpec.tagsInQuery = this.state.tagsInQuery;
 
-        this.props.onQueryPhotos(querySpec);
-
+        // this.props.onQueryPhotos(querySpec);
+        let promise = this.props.onQueryPhotos(querySpec);
+        promise.then( function(photos) {
+           debugger;
+        });
         // var queryPhotosPromise = $shafferotoServerService.queryPhotos(querySpec);
         // queryPhotosPromise.then(function (result) {
         //
@@ -281,7 +282,7 @@ class Search extends Component {
                 </div>
 
                 <div id="search">
-                    <button onclick={this.search.bind(this)} className="mediumFont">Search</button>
+                    <button type="button" onClick={this.search.bind(this)} className="mediumFont">Search</button>
                 </div>
 
             </div>
