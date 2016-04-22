@@ -83,12 +83,16 @@ class Photos extends Component {
         window.addEventListener('resize', this.handleResize.bind(this));
     }
 
-    handleSelectPhoto(photo)
-    {
+    handleSelectPhoto(photo) {
         console.log("handleSelectPhoto invoked");
         this.setState({selectedPhoto: photo});
     }
 
+    handleQueryPhotos(querySpec) {
+        console.log("handleQueryPhotos invoked");
+        console.log("querySpec=" + querySpec);
+    }
+    
     componentDidMount() {
         console.log("componentDidMount invoked");
 
@@ -130,7 +134,7 @@ class Photos extends Component {
                 </div>
                 
                 <div className="metadata">
-                    <Info photoInfo = {this.state}/>
+                    <Info onQueryPhotos={this.handleQueryPhotos.bind(this)} photoInfo = {this.state}/>
                 </div>
             </div>
         );

@@ -45,7 +45,6 @@ class Search extends Component {
     buildSearchExpression() {
 
         var self = this;
-
         let searchExpression = "";
         this.state.tagsInQuery.forEach(function(tag, index) {
             if (index != 0) {
@@ -92,6 +91,51 @@ class Search extends Component {
         this.buildSearchExpression();
     }
 
+    buildQuerySpec = function() {
+
+        var querySpec = {};
+        querySpec.tagsInQuery = this.state.tagsInQuery;
+        querySpec.tagQueryOperator = this.state.tagQueryOperator;
+
+        querySpec.dateQueryType = this.state.dateQueryType;
+        querySpec.dateValue = this.state.dateValue;
+        querySpec.startDateValue = this.state.startDateValue;
+        querySpec.endDateValue = this.state.endDateValue;
+
+        return querySpec;
+    }
+
+
+    search() {
+
+        console.log("performSearch");
+
+        debugger;
+
+        var querySpec = this.buildQuerySpec();
+        querySpec.tagsInQuery = this.state.tagsInQuery;
+
+        this.props.onQueryPhotos(querySpec);
+
+        // var queryPhotosPromise = $shafferotoServerService.queryPhotos(querySpec);
+        // queryPhotosPromise.then(function (result) {
+        //
+        //     console.log("queryPhotos successful");
+        //
+        //     $scope.photos = [];
+        //     $scope.baseUrl = $shafferotoServerService.getBaseUrl() + "photos/";
+        //
+        //     result.data.photos.forEach(function (dbPhoto) {
+        //
+        //         var photo = $scope.getPhotoFromDBPhoto(dbPhoto);
+        //         $scope.photos.push(photo);
+        //         photosById[dbPhoto.id] = photo;
+        //     });
+        //
+        //     // $scope.$broadcast("imagesInitialized");
+        // });
+    }
+
     onDateChanged(event) {
         console.log("onDateChanged");
 
@@ -133,13 +177,13 @@ class Search extends Component {
             </div>
         );
     }
-    
+
     onDateDiv() {
         return (
             <div id="onDateDiv">
                 <span className="dateLabel">On</span>
                 <input className="smallFont dateInput" type="date" id="onDate" onChange={this.onDateChanged.bind(this)} value={this.state.dateValue}/>
-            </div>             
+            </div>
         );
     }
 
@@ -158,7 +202,7 @@ class Search extends Component {
 
         let tags = [];
         tags.push({ name: "Mom", id: 0}, { name: "Rachel", id: 1}, { name: "Sam", id: 2}, {name: "Joel", id: 3});
-        this.addedTag = tags[0];
+        this.addedTag = tags[0].name;
 
         let selectOptions = tags.map(function(tag, index) {
             return (
@@ -171,6 +215,7 @@ class Search extends Component {
                 <h4>Search</h4>
 
                 <div className="searchSection">
+
                     <span className="smallFont">{this.state.searchExpression}</span>
 
                     <h5 className="metadataSubheading">Tags</h5>
@@ -184,40 +229,45 @@ class Search extends Component {
 
                     </div>
 
-                </div>
 
-                <h5 className="metadataSubheading">Dates</h5>
+                    <h5 className="metadataSubheading">Dates</h5>
 
-                <div className="datesSubsection">
-                    <div>
-                        <label className="smallFont">
-                            <input type="radio" className="dateQueryTypeRadioFirst" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="none" />None
-                        </label>
+                    <div className="datesSubsection">
+                        <div>
+                            <label className="smallFont">
+                                <input type="radio" className="dateQueryTypeRadioFirst" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="none" />None
+                            </label>
 
-                        <label className="smallFont">
-                            <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="before" />Before
-                        </label>
+                            <label className="smallFont">
+                                <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="before" />Before
+                            </label>
 
-                        <label className="smallFont">
-                            <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="after" />After
-                        </label>
+                            <label className="smallFont">
+                                <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="after" />After
+                            </label>
 
-                        <label className="smallFont">
-                            <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="on" />On
-                        </label>
+                            <label className="smallFont">
+                                <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="on" />On
+                            </label>
 
-                        <label className="smallFont">
-                            <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="between" />Between
-                        </label>
+                            <label className="smallFont">
+                                <input type="radio" className="dateQueryTypeRadio" name="dateQueryType" onChange={this.onDateQueryTypeChanged.bind(this)} value="between" />Between
+                            </label>
+                        </div>
+
+                        { this.state.dateQueryType == 'before' ? this.beforeDateDiv() : null }
+                        { this.state.dateQueryType == 'after' ? this.afterDateDiv() : null }
+                        { this.state.dateQueryType == 'on' ? this.onDateDiv() : null }
+                        { this.state.dateQueryType == 'between' ? this.betweenDateDiv() : null }
+
                     </div>
 
-                    { this.state.dateQueryType == 'before' ? this.beforeDateDiv() : null }
-                    { this.state.dateQueryType == 'after' ? this.afterDateDiv() : null }
-                    { this.state.dateQueryType == 'on' ? this.onDateDiv() : null }
-                    { this.state.dateQueryType == 'between' ? this.betweenDateDiv() : null }
-
                 </div>
-                
+
+                <div id="search">
+                    <button onclick={this.search.bind(this)} className="mediumFont">Search</button>
+                </div>
+
             </div>
         )
     }

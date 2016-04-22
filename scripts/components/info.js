@@ -29,10 +29,12 @@ class Info extends Component {
 
     render () {
 
+        console.log("eat pizza");
+
         return (
             <div>
                 <Metadata  photoInfo = {this.props.photoInfo}/>
-                <Search  photoInfo = {this.props.photoInfo}/>
+                <Search onQueryPhotos={this.props.onQueryPhotos} photoInfo = {this.props.photoInfo}/>
             </div>
         );
     }
