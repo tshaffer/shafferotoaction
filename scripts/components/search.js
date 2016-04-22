@@ -87,7 +87,8 @@ class Search extends Component {
         console.log("removeTagFromQuery invoked");
     }
 
-    tagQueryOperatorUpdated () {
+    tagQueryOperatorUpdated (event) {
+        this.state.tagQueryOperator = event.target.value;
         this.buildSearchExpression();
     }
 
@@ -225,6 +226,21 @@ class Search extends Component {
                             <select defaultValue={tags[0].name} id="tags" onChange={this.onTagSelected.bind(this)}>{selectOptions}</select>
                             <button className="plainButton" type="button" onClick={this.addTagToQuery.bind(this)}>+</button>
                             <button className="plainButton" type="button" onClick={this.removeTagFromQuery.bind(this)}>-</button>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span className="smallFont mr4">Matches</span>
+                                <label className="smallFont">
+                                    <input type="radio" className="tagQueryLeft" name="tagQueryOperator" onClick={this.tagQueryOperatorUpdated.bind(this)} ng-model="tagQueryOperator" value="OR"/>Any tag
+                                </label>
+
+                                <label className="smallFont">
+                                    <input type="radio" className="tagQueryRight" name="tagQueryOperator" onClick={this.tagQueryOperatorUpdated.bind(this)} ng-model="tagQueryOperator"value="AND"/>All tags
+                                </label>
+
+                            </div>
+
                         </div>
 
                     </div>

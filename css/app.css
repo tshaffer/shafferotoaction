@@ -150,3 +150,14 @@ button:focus { outline: none; }
     width: 110px;
 }
 
+.mr4 {
+    margin-right: 4px;
+}
+
+.tagQueryLeft {
+    margin: 0px 6px 0px 0px;
+}
+
+.tagQueryRight {
+    margin: 0px 6px 0px 4px;
+}
