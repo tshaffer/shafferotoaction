@@ -9,6 +9,7 @@ class Search extends Component {
         super(props);
         this.state = {
             searchExpression: "",
+            tags: [],
             tagsInQuery: [],
             tagQueryOperator: 'OR',
             dateQueryType: 'none',
@@ -44,12 +45,11 @@ class Search extends Component {
             url: getTagsUrl,
             success: function(result) {
                 console.log("getTags successful");
-                debugger;
                 result.Tags.forEach(function(tag, index){
                     let tagObj = { name: tag.label, id: index};
-                    self.tags.push(tagObj);
+                    self.state.tags.push(tagObj);
                 });
-                self.addedTag = self.tags[0].name;
+                self.addedTag = self.state.tags[0].name;
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log("errors retrieving tags in getTags");
@@ -211,15 +211,25 @@ class Search extends Component {
 
     render () {
 
-        let tags = [];
-        tags.push({ name: "Mom", id: 0}, { name: "Rachel", id: 1}, { name: "Sam", id: 2}, {name: "Joel", id: 3});
-        this.addedTag = tags[0].name;
+        // let tags = [];
+        // tags.push({ name: "Mom", id: 0}, { name: "Rachel", id: 1}, { name: "Sam", id: 2}, {name: "Joel", id: 3});
+        // this.addedTag = tags[0].name;
 
-        let selectOptions = tags.map(function(tag, index) {
+        let selectOptions = this.state.tags.map(function(tag, index) {
             return (
                 <option value={tag.name} key={tag.id}>{tag.name}</option>
             );
         });
+
+        let tagsDiv = <div></div>;
+        if (this.state.tags.length > 0) {
+            tagsDiv =
+                <div>
+                    <select defaultValue={this.state.tags[0].name} id="tags" onChange={this.onTagSelected.bind(this)}>{selectOptions}</select>
+                    <button className="plainButton" type="button" onClick={this.addTagToQuery.bind(this)}>+</button>
+                    <button className="plainButton" type="button" onClick={this.removeTagFromQuery.bind(this)}>-</button>
+                </div>
+        }
 
         return (
             <div>
@@ -232,11 +242,8 @@ class Search extends Component {
                     <h5 className="metadataSubheading">Tags</h5>
                     
                     <div className="tagsSubsection">
-                        <div>
-                            <select defaultValue={tags[0].name} id="tags" onChange={this.onTagSelected.bind(this)}>{selectOptions}</select>
-                            <button className="plainButton" type="button" onClick={this.addTagToQuery.bind(this)}>+</button>
-                            <button className="plainButton" type="button" onClick={this.removeTagFromQuery.bind(this)}>-</button>
-                        </div>
+
+                        {tagsDiv}
 
                         <div>
                             <div>
