@@ -26,6 +26,36 @@ class Search extends Component {
         // let formattedDate = today.getFullYear().toString() + "-0" + (today.getMonth() + 1).toString() + "-" + today.getDate().toString();
         let formattedDate = this.formatDate(today);
         this.setState({dateValue: formattedDate});
+
+        // retrieve tags from db
+        this.getTags();
+    }
+
+    getTags() {
+
+        this.tags = [];
+
+        const url = "http://localhost:3000/";
+        const getTagsUrl = url + "getTags";
+
+        var self = this;
+
+        $.get({
+            url: getTagsUrl,
+            success: function(result) {
+                console.log("getTags successful");
+                debugger;
+                result.Tags.forEach(function(tag, index){
+                    let tagObj = { name: tag.label, id: index};
+                    self.tags.push(tagObj);
+                });
+                self.addedTag = self.tags[0].name;
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log("errors retrieving tags in getTags");
+                console.error(getTagsUrl, status, err.toString());
+            }.bind(this)
+        });
     }
 
     prependZero(str) {
