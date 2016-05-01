@@ -31,6 +31,22 @@ body {
     -webkit-justify-content: space-around;
 }
 
+/*.flex-playlist-container {*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+    /*list-style: none;*/
+    /*border: 1px solid silver;*/
+    /*-ms-box-orient: horizontal;*/
+    /*display: -webkit-box;*/
+    /*display: -moz-box;*/
+    /*display: -ms-flexbox;*/
+    /*display: -moz-flex;*/
+    /*display: -webkit-flex;*/
+    /*display: flex;*/
+    /*justify-content: space-around;*/
+    /*-webkit-justify-content: space-around;*/
+/*}*/
+
 .wrap    {
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -118,7 +134,10 @@ body {
 button:focus { outline: none; }
 
 .plainButton {
-    padding: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 4px;
+    padding-right: 4px;
     border: none;
     background: none;
 }
