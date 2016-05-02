@@ -106,9 +106,7 @@ class PhotoGrid extends Component {
             
             self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
             self.photosById[photo.dbId] = photo;
-
-            console.log("key is ", photo.dbId);
-
+            
             return (
                 <li
                     className="flex-item photoThumbsDiv"

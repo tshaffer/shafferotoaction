@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Metadata from '../components/metadata';
-import Search from '../components/search';
+import PhotoSearch from './photo-search';
 
 class PhotoDetail extends Component {
 
@@ -16,7 +16,7 @@ class PhotoDetail extends Component {
         return (
             <div>
                 <Metadata selectedPhoto = {this.props.photo}/>
-                <Search onQueryPhotos={this.props.onQueryPhotos} selectedPhoto = {this.props.photo}/>
+                <PhotoSearch onQueryPhotos={this.props.onQueryPhotos} selectedPhoto = {this.props.photo}/>
             </div>
         );
     }
