@@ -1,6 +1,3 @@
-/**
- * Created by tedshaffer on 4/20/16.
- */
 import React, { Component } from 'react';
 
 class Search extends Component {
@@ -71,7 +68,7 @@ class Search extends Component {
         var dayInMonth = (date.getDate()).toString();
         return date.getFullYear().toString() + "-" + this.prependZero(month) + "-" + this.prependZero(dayInMonth);
     }
-    
+
     buildSearchExpression() {
 
         var self = this;
@@ -240,7 +237,7 @@ class Search extends Component {
                     <span className="smallFont">{this.state.searchExpression}</span>
 
                     <h5 className="metadataSubheading">Tags</h5>
-                    
+
                     <div className="tagsSubsection">
 
                         {tagsDiv}

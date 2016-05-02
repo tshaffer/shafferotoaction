@@ -21,9 +21,9 @@ class Metadata extends Component {
         this.selectedPhotoWidth = "";
         this.selectedPhotoHeight = "";
         this.selectedPhotoDateTaken = "";
-        if (this.props.photoInfo.selectedPhoto != null) {
+        if (this.props.selectedPhoto != null) {
 
-            let selectedPhoto = this.props.photoInfo.selectedPhoto;
+            let selectedPhoto = this.props.selectedPhoto;
             this.selectedPhotoTitle = selectedPhoto.title;
             this.selectedPhotoWidth = selectedPhoto.width;
             this.selectedPhotoHeight = selectedPhoto.height;
