@@ -2,9 +2,6 @@
  * Created by tedshaffer on 5/2/16.
  */
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { updatePhotos } from '../actions/index';
-import { bindActionCreators } from 'redux';
 
 class PhotoSearch extends Component {
 
@@ -309,10 +306,4 @@ class PhotoSearch extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    // Whenever selectPhoto is called, the result should be passed to all of our reducers
-    return bindActionCreators({ updatePhotos: updatePhotos }, dispatch);
-}
-
-export default connect(null, mapDispatchToProps)(PhotoSearch);
-
+export default PhotoSearch;
