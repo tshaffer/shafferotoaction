@@ -1,9 +1,12 @@
 /**
  * Created by tedshaffer on 5/2/16.
  */
+/**
+ * Created by tedshaffer on 5/2/16.
+ */
 import React, { Component } from 'react';
 
-class PhotoSearch extends Component {
+class Search extends Component {
 
     constructor(props) {
         super(props);
@@ -306,4 +309,4 @@ class PhotoSearch extends Component {
     }
 }
 
-export default PhotoSearch;
+export default Search;
