@@ -12,90 +12,14 @@ class PhotoGrid extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            photos: [],
+            // photos: [],
             selectedPhoto: {}
         };
         this.photosById = {};
     }
 
-    getPhotoFromDBPhoto (dbPhoto) {
-
-        let photo = {};
-
-        photo.dbId = dbPhoto.id;
-        photo.url = dbPhoto.url;
-        photo.thumbUrl = dbPhoto.thumbUrl;
-        photo.orientation = dbPhoto.orientation;
-        photo.title = dbPhoto.title;
-
-        let width = dbPhoto.width;
-        let height = dbPhoto.height;
-
-        let ratio = null;
-        if (photo.orientation == 6) {
-            ratio = height / width;
-        }
-        else {
-            ratio = width / height;
-        }
-
-        photo.height = 108;
-        photo.width = ratio * photo.height;
-
-        let dateTaken = dbPhoto.dateTaken;
-        let dt = new Date(dateTaken);
-        // photo.dateTaken = dt.toString("M/d/yyyy HH:mm");
-        photo.dateTaken = dt.toString("M/d/yyyy hh:mm tt");
-
-        photo.tagList = "";
-        dbPhoto.tags.forEach(function(tag) {
-            photo.tagList += tag + ", ";
-        });
-        photo.tagList = photo.tagList.substring(0, photo.tagList.length - 2);
-
-        photo.dbPhoto = dbPhoto;
-
-        return photo;
-    }
-
-    updatePhotos(newDBPhotos) {
-
-        var self = this;
-
-        let photos = [];
-
-        newDBPhotos.forEach(function(dbPhoto){
-
-            let photo = self.getPhotoFromDBPhoto(dbPhoto);
-            photos.push(photo);
-        });
-
-        if (photos.length > 0) {
-            this.setState({photos: photos});
-            this.setState({selectedPhoto: photos[0]});
-        }
-    }
-
     componentDidMount() {
-        console.log("componentDidMount invoked");
-
-        const url = "http://localhost:3000/";
-        const getPhotosUrl = url + "getPhotos";
-
-        $.get({
-            url: getPhotosUrl,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                console.log("number of photos retrieved is: " + data.photos.length.toString());
-                this.updatePhotos(data.photos);
-                this.props.updatePhotos(this.state.photos);
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log("errors retrieving photos");
-                console.error(getPhotosUrl, status, err.toString());
-            }.bind(this)
-        });
+        console.log("photo-grid: componentDidMount invoked");
     }
     
     render() {
@@ -127,22 +51,13 @@ class PhotoGrid extends Component {
                 </ul>
             </div>
         );
-
     }
-
-}
-
-function mapStateToProps(state) {
-    // Whatever is returned will show up as props inside of PhotoGrid
-    return {
-        photos: state.photos
-    };
 }
 
 // Anything returned from this function will end up as props on the PhotoGrid container
 function mapDispatchToProps(dispatch) {
     // Whenever selectPhoto is called, the result should be passed to all of our reducers
-    return bindActionCreators({ selectPhoto: selectPhoto, updatePhotos: updatePhotos }, dispatch);
+    return bindActionCreators({ selectPhoto: selectPhoto }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PhotoGrid);
+export default connect(null, mapDispatchToProps)(PhotoGrid);

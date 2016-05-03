@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
 
-import Photos from './photos';
+import Photos from '../containers/photos';
 
 export default class App extends Component {
     render() {
