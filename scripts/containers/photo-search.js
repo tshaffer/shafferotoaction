@@ -11,7 +11,6 @@ class PhotoSearch extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            photos: [],
             searchExpression: "",
             tags: [],
             tagsInQuery: [],
@@ -141,89 +140,6 @@ class PhotoSearch extends Component {
     }
 
 
-    getPhotoFromDBPhoto (dbPhoto) {
-
-        let photo = {};
-
-        photo.dbId = dbPhoto.id;
-        photo.url = dbPhoto.url;
-        photo.thumbUrl = dbPhoto.thumbUrl;
-        photo.orientation = dbPhoto.orientation;
-        photo.title = dbPhoto.title;
-
-        let width = dbPhoto.width;
-        let height = dbPhoto.height;
-
-        let ratio = null;
-        if (photo.orientation == 6) {
-            ratio = height / width;
-        }
-        else {
-            ratio = width / height;
-        }
-
-        photo.height = 108;
-        photo.width = ratio * photo.height;
-
-        let dateTaken = dbPhoto.dateTaken;
-        let dt = new Date(dateTaken);
-        // photo.dateTaken = dt.toString("M/d/yyyy HH:mm");
-        photo.dateTaken = dt.toString("M/d/yyyy hh:mm tt");
-
-        photo.tagList = "";
-        dbPhoto.tags.forEach(function(tag) {
-            photo.tagList += tag + ", ";
-        });
-        photo.tagList = photo.tagList.substring(0, photo.tagList.length - 2);
-
-        photo.dbPhoto = dbPhoto;
-
-        return photo;
-    }
-
-    updatePhotos(newDBPhotos) {
-
-        var self = this;
-
-        let photos = [];
-
-        newDBPhotos.forEach(function(dbPhoto){
-
-            let photo = self.getPhotoFromDBPhoto(dbPhoto);
-            photos.push(photo);
-        });
-
-        if (photos.length > 0) {
-            this.setState({photos: photos});
-            this.setState({selectedPhoto: photos[0]});
-        }
-    }
-
-    queryPhotos (querySpec) {
-
-        const url = "http://localhost:3000/";
-        const queryPhotosUrl = url + "queryPhotos";
-
-        // TODO - passing the object would have worked except the server code is expecting a string, so the following nonsense was done for backwards compatibility
-        // let query = { querySpec: querySpec };
-        let queryStr = JSON.stringify(querySpec);
-        let query = { querySpec: queryStr };
-
-        $.get({
-            url: queryPhotosUrl,
-            data: query,
-            success: function(data) {
-                console.log("queryPhotos: number of photos retrieved is: " + data.photos.length.toString());
-                this.updatePhotos(data.photos);
-                this.props.updatePhotos(this.state.photos);
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log("errors retrieving photos in queryPhotos");
-                console.error(getPhotosUrl, status, err.toString());
-            }.bind(this)
-        });
-    }
-
     search() {
 
         console.log("performSearch");
@@ -231,7 +147,7 @@ class PhotoSearch extends Component {
         var querySpec = this.buildQuerySpec();
         querySpec.tagsInQuery = this.state.tagsInQuery;
 
-        this.queryPhotos(querySpec);
+        this.props.onQueryPhotos(querySpec);
     }
 
     onDateChanged(event) {

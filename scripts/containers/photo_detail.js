@@ -9,10 +9,8 @@ import PhotoSearch from './photo-search';
 
 class PhotoDetail extends Component {
 
-    render () {
-
-        console.log("eat pizza");
-
+    render () { 
+        
         return (
             <div>
                 <Metadata selectedPhoto = {this.props.photo}/>
