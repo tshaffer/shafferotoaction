@@ -25,11 +25,70 @@ class PhotoGrid extends Component {
     render() {
 
         let self = this;
+
+        let lastYear = -1;
+        let lastMonth = -1;
+        let lastDate = -1;
+
         let photosFromReducer = this.props.photos || [];
+
+        // need an array of items where each item in the array is
+        // - <p> with the date, followed by a
+        // - <ul> with some number of photo <li> objects
+
+        let daysOfPhotos = [];
+        let dayOfPhotos = {};
+
+        photosFromReducer.map(function(photo) {
+
+            let dateTaken = photo.dateTaken;
+            let dt = new Date(dateTaken);
+
+            if (dt.getYear() != lastYear || dt.getMonth() != lastMonth || dt.getDate() != lastDate) {
+
+                lastYear = dt.getYear();
+                lastMonth = dt.getMonth();
+                lastDate = dt.getDate();
+
+                if (!(dayOfPhotos.photos == undefined)) {
+                    daysOfPhotos.push(dayOfPhotos);
+                }
+
+                dayOfPhotos = {};
+                dayOfPhotos.dateTaken = dt;
+                dayOfPhotos.photos = [];
+            }
+            dayOfPhotos.photos.push(photo);
+        });
+
+        // TODO push last day of photos onto array if necessary
+
         let photoNodes = photosFromReducer.map(function(photo) {
-            
+
             self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
             self.photosById[photo.dbId] = photo;
+
+            // let dateTaken = photo.dateTaken;
+            // let dt = new Date(dateTaken);
+            //
+            // if (dt.getYear() != lastYear || dt.getMonth() != lastMonth || dt.getDate() != lastDate) {
+            //     lastYear = dt.getYear();
+            //     lastMonth = dt.getMonth();
+            //     lastDate = dt.getDate();
+            //     return (
+            //         <li
+            //             className="flex-item photoThumbsDiv"
+            //             key={photo.dbId}
+            //         >
+            //             <p>this is a new date</p><br/>
+            //             <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width={photo.width}
+            //                  height={photo.height}
+            //                  onClick={() => self.props.selectPhoto(photo)}
+            //             />
+            //         </li>
+            //     )
+            // }
+
             
             return (
                 <li
