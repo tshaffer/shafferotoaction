@@ -5,6 +5,9 @@
  * Created by tedshaffer on 5/2/16.
  */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { updateTags } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
 class Search extends Component {
 
@@ -52,6 +55,7 @@ class Search extends Component {
                     let tagObj = { name: tag.label, id: index};
                     self.state.tags.push(tagObj);
                 });
+                this.props.updateTags(self.state.tags);
                 self.addedTag = self.state.tags[0].name;
             }.bind(this),
             error: function(xhr, status, err) {
@@ -309,4 +313,16 @@ class Search extends Component {
     }
 }
 
-export default Search;
+function mapStateToProps(state) {
+    return {
+        tags: state.tags
+    };
+}
+
+// Anything returned from this function will end up as props on the PhotoGrid container
+function mapDispatchToProps(dispatch) {
+    // Whenever selectPhoto is called, the result should be passed to all of our reducers
+    return bindActionCreators({ updateTags: updateTags }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

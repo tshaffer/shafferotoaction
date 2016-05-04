@@ -16,4 +16,10 @@ export function updatePhotos(photos) {
     }
 }
 
-
+export function updateTags(tags) {
+    console.log("the tags have been updated.");
+    return {
+        type: "TAGS_UPDATED",
+        payload: tags
+    }
+}
