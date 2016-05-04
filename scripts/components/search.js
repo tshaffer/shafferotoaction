@@ -53,8 +53,10 @@ class Search extends Component {
                 console.log("getTags successful");
                 result.Tags.forEach(function(tag, index){
                     let tagObj = { name: tag.label, id: index};
-                    self.state.tags.push(tagObj);
+                    self.tags.push(tagObj);
+                    // self.state.tags.push(tagObj);
                 });
+                this.setState({tags: self.tags});
                 this.props.updateTags(self.state.tags);
                 self.addedTag = self.state.tags[0].name;
             }.bind(this),
@@ -125,7 +127,7 @@ class Search extends Component {
     }
 
     tagQueryOperatorUpdated (event) {
-        this.state.tagQueryOperator = event.target.value;
+        this.setState({tagQueryOperator: event.target.value});
         this.buildSearchExpression();
     }
 
