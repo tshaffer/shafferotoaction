@@ -67,28 +67,6 @@ class PhotoGrid extends Component {
 
             self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
             self.photosById[photo.dbId] = photo;
-
-            // let dateTaken = photo.dateTaken;
-            // let dt = new Date(dateTaken);
-            //
-            // if (dt.getYear() != lastYear || dt.getMonth() != lastMonth || dt.getDate() != lastDate) {
-            //     lastYear = dt.getYear();
-            //     lastMonth = dt.getMonth();
-            //     lastDate = dt.getDate();
-            //     return (
-            //         <li
-            //             className="flex-item photoThumbsDiv"
-            //             key={photo.dbId}
-            //         >
-            //             <p>this is a new date</p><br/>
-            //             <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width={photo.width}
-            //                  height={photo.height}
-            //                  onClick={() => self.props.selectPhoto(photo)}
-            //             />
-            //         </li>
-            //     )
-            // }
-
             
             return (
                 <li
@@ -103,10 +81,130 @@ class PhotoGrid extends Component {
             );
         });
 
+        // <div className="photosDiv">
+        //     <ul className="flex-container wrap">
+        //         {photoNodes}
+        //     </ul>
+        // </div>
+
         return (
             <div className="photosDiv">
+                <p>5/4/2016</p>
+                <ul className="flex-container wrap" >
+                    <li className="flex-item photoThumbsDiv" key="1">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="2">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="3">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="4">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="5">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="6">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="7">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="11">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="12">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="13">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="14">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="15">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="16">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="17">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="21">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="22">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="23">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="24">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="25">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="26">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                    <li className="flex-item photoThumbsDiv" key="27">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%201_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
+                </ul>
+
+                <p>4/4/2015</p>
                 <ul className="flex-container wrap">
-                    {photoNodes}
+                    <li className="flex-item photoThumbsDiv" key="100">
+                        <img src="http://localhost:3000/photos/testPhotos/Tahoe/photo%20(8)_thumb.JPG" className="thumbImg" width="150"
+                             height="150"
+                        />
+                    </li>
                 </ul>
             </div>
         );
