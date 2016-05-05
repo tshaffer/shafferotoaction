@@ -31,6 +31,14 @@ body {
     -webkit-justify-content: flex-start;
 }
 
+.dayOfPhotosDiv {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.dayOfPhotosLabel {
+    margin: 0px;
+}
 /*.flex-playlist-container {*/
 /*padding: 0;*/
 /*margin: 0;*/
