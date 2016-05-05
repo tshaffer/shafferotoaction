@@ -27,8 +27,8 @@ body {
     display: -moz-flex;
     display: -webkit-flex;
     display: flex;
-    justify-content: space-around;
-    -webkit-justify-content: space-around;
+    justify-content: flex-start;
+    -webkit-justify-content: flex-start;
 }
 
 /*.flex-playlist-container {*/

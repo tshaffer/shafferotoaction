@@ -16,9 +16,6 @@ class PhotoGrid extends Component {
             selectedPhoto: {}
         };
         this.photosById = {};
-
-        this.photoCount = 0;
-
     }
 
     componentDidMount() {
@@ -29,16 +26,10 @@ class PhotoGrid extends Component {
 
         var self = this;
 
-
         let photosForDayNodes = dayOfPhotos.photos.map(function(photo) {
 
             self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
             self.photosById[photo.dbId] = photo;
-
-            console.log(photo.dbId);
-
-            console.log("photoCount=" + self.photoCount.toString());
-            self.photoCount++;
 
             return (
                 <li className="flex-item photoThumbsDiv" key={photo.dbId}>
@@ -49,9 +40,7 @@ class PhotoGrid extends Component {
                 </li>
             );
         });
-
-        console.log("leaving getDayOfPhotoNodes");
-
+        
         return photosForDayNodes;
     }
 
