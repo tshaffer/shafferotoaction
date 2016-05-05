@@ -48,6 +48,50 @@ class PhotoGrid extends Component {
         return Date.compare(new Date(photo1.dateTaken), new Date(photo2.dateTaken)) * -1;
     }
 
+    getMonthLabel(date) {
+        let monthLabel = "";
+        switch (date.getMonth()) {
+            case 0:
+                monthLabel = "Jan";
+                break;
+            case 1:
+                monthLabel = "Feb";
+                break;
+            case 2:
+                monthLabel = "Mar";
+                break;
+            case 3:
+                monthLabel = "Apr";
+                break;
+            case 4:
+                monthLabel = "May";
+                break;
+            case 5:
+                monthLabel = "Jun";
+                break;
+            case 6:
+                monthLabel = "Jul";
+                break;
+            case 7:
+                monthLabel = "Aug";
+                break;
+            case 8:
+                monthLabel = "Sep";
+                break;
+            case 9:
+                monthLabel = "Oct";
+                break;
+            case 10:
+                monthLabel = "Nov";
+                break;
+            case 11:
+                monthLabel = "Dec";
+                break;
+        }
+
+        return monthLabel;
+    }
+
     render() {
 
         let self = this;
@@ -111,7 +155,8 @@ class PhotoGrid extends Component {
         let daysOfPhotosNodes = daysOfPhotos.map(function(dayOfPhotos) {
 
             // let formattedDateTime = dayOfPhoto.dateTaken.toString("yyyy-MM-dd hh:mm tt");
-            let formattedDateTime = dayOfPhotos.dateTaken.toString("yyyy-MM-dd");
+            let formattedDateTime = self.getMonthLabel(dayOfPhotos.dateTaken) + " " + dayOfPhotos.dateTaken.toString("dd, yyyy");
+            // let formattedDateTime = dayOfPhotos.dateTaken.toString("yyyy-MM-dd");
             return (
                 <div className="dayOfPhotosDiv" key={Math.random().toString()}>
                     <p className="dayOfPhotosLabel">{formattedDateTime}</p>
