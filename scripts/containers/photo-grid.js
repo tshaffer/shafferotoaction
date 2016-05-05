@@ -44,6 +44,10 @@ class PhotoGrid extends Component {
         return photosForDayNodes;
     }
 
+    comparePhotosByDateTaken(photo1, photo2) {
+        return Date.compare(new Date(photo1.dateTaken), new Date(photo2.dateTaken)) * -1;
+    }
+
     render() {
 
         let self = this;
@@ -60,6 +64,8 @@ class PhotoGrid extends Component {
 
         let daysOfPhotos = [];
         let dayOfPhotos = {};
+
+        photosFromReducer.sort(this.comparePhotosByDateTaken);
 
         photosFromReducer.map(function(photo) {
 
