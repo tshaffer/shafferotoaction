@@ -13,13 +13,27 @@ class PhotoGrid extends Component {
         super(props);
         this.state = {
             // photos: [],
-            selectedPhoto: {}
+            // selectedPhoto: {}
+            selectedPhotos: {}
         };
         this.photosById = {};
     }
 
     componentDidMount() {
         console.log("photo-grid: componentDidMount invoked");
+    }
+
+    togglePhotoSelection(photo) {
+        console.log("togglePhotoSelection");
+
+        let selectedPhotos = this.state.selectedPhotos;
+        if (selectedPhotos.hasOwnProperty(photo.dbId)) {
+            delete selectedPhotos[photo.dbId];
+        }
+        else {
+            selectedPhotos[photo.dbId] = photo;
+        }
+        // this.setState({selectedPhotos: selectedPhotos});
     }
 
     getDayOfPhotoNodes(dayOfPhotos) {
@@ -37,7 +51,9 @@ class PhotoGrid extends Component {
                          height={photo.height}
                          onClick={() => self.props.selectPhoto(photo)}
                     />
-                    <input type="checkbox" className="thumbSelector"></input>
+                    <input id={photo.dbId} type="checkbox" className="thumbSelector"
+                           onClick={() => self.togglePhotoSelection(photo)}>
+                    </input>
                 </li>
             );
         });
