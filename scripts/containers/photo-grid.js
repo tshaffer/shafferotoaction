@@ -4,7 +4,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectPhoto } from '../actions/index';
-import { updatePhotos } from '../actions/index';
+import { updateSelectedPhotos } from '../actions/index';
+// import { updatePhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class PhotoGrid extends Component {
@@ -33,7 +34,7 @@ class PhotoGrid extends Component {
         else {
             selectedPhotos[photo.dbId] = photo;
         }
-        // this.setState({selectedPhotos: selectedPhotos});
+        this.props.updateSelectedPhotos(selectedPhotos);
     }
 
     getDayOfPhotoNodes(dayOfPhotos) {
@@ -196,7 +197,7 @@ class PhotoGrid extends Component {
 // Anything returned from this function will end up as props on the PhotoGrid container
 function mapDispatchToProps(dispatch) {
     // Whenever selectPhoto is called, the result should be passed to all of our reducers
-    return bindActionCreators({ selectPhoto: selectPhoto }, dispatch);
+    return bindActionCreators({ selectPhoto: selectPhoto, updateSelectedPhotos: updateSelectedPhotos }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(PhotoGrid);

@@ -15,8 +15,14 @@ class PhotoDetail extends Component {
         return (
             <div>
                 <Metadata selectedPhoto = {this.props.photo}/>
-                <Search onQueryPhotos={this.props.onQueryPhotos} selectedPhoto = {this.props.photo}/>
-                <Albums onCreateAlbum={this.props.onCreateAlbum}/>
+                <Search 
+                    onQueryPhotos={this.props.onQueryPhotos}
+                    selectedPhoto = {this.props.photo}
+                />
+                <Albums
+                    onCreateAlbum={this.props.onCreateAlbum}
+                    selectedPhotos = {this.props.selectedPhotos}
+                />
             </div>
         );
     }
@@ -25,7 +31,8 @@ class PhotoDetail extends Component {
 
 function mapStateToProps(state) {
     return {
-        photo: state.activePhoto
+        photo: state.activePhoto,
+        selectedPhotos: state.selectedPhotos
     };
 }
 

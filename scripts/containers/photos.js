@@ -175,11 +175,14 @@ class Photos extends Component {
         return (
             <div className="photoPageContainer" style={this.state.divStyle}>
                 <div className="photosDiv">
-                    <PhotoGrid photos = {this.props.photos} />
+                    <PhotoGrid photos = {this.props.photos}/>
                 </div>
 
                 <div className="metadata">
-                    <PhotoDetail onCreateAlbum={this.handleCreateAlbum.bind(this)} onQueryPhotos={this.handleQueryPhotos.bind(this)} />
+                    <PhotoDetail 
+                        onCreateAlbum={this.handleCreateAlbum.bind(this)} 
+                        onQueryPhotos={this.handleQueryPhotos.bind(this)}
+                    />
                 </div>
             </div>
         );

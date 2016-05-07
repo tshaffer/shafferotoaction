@@ -80,6 +80,13 @@ class Albums extends Component {
                 </div>
         }
 
+        let selectedPhotosCount = 0;
+        if (this.props.selectedPhotos != undefined) {
+            // debugger;
+            selectedPhotosCount = Object.keys(this.props.selectedPhotos).length;
+            console.log("selected photos is now defined", selectedPhotosCount);
+        }
+
         const divStyle = {
             margin: '5px'
         };
@@ -98,6 +105,8 @@ class Albums extends Component {
 
                 {albumsDiv}
 
+                <p>number of selected photos is: {selectedPhotosCount}</p>
+
             </div>
         );
     }
@@ -105,7 +114,8 @@ class Albums extends Component {
 
 function mapStateToProps(state) {
     return {
-        albums: state.albums
+        albums: state.albums,
+        selectedPhotos: state.selectedPhotos
     };
 }
 
