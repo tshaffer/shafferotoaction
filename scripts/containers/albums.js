@@ -67,6 +67,41 @@ class Albums extends Component {
         console.log("this.selectedAlbum = " + this.selectedAlbum.name);
     }
 
+    onAddSelectedPhotosToAlbum(event) {
+
+        let photosToAdd = [];
+
+        console.log("onAddSelectedPhotosToAlbum invoked");
+
+        for (var property in this.props.selectedPhotos) {
+            if (this.props.selectedPhotos.hasOwnProperty(property)) {
+                const selectedPhoto = this.props.selectedPhotos[property];
+                photosToAdd.push(selectedPhoto.dbId);
+            }
+        }
+
+        if (photosToAdd.length == 0) return;
+
+        const url = "http://localhost:3000/";
+        const addPhotosToAlbumUrl = url + "addPhotosToAlbum";
+
+        var self = this;
+
+        const payload = { albumId: this.selectedAlbum.id, photos: photosToAdd };
+
+        $.get({
+            url: addPhotosToAlbumUrl,
+            data: payload,
+            success: function(result) {
+                console.log("addPhotosToAlbum successful");
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log("error in addPhotosToAlbum");
+                console.error(addPhotosToAlbumUrl, status, err.toString());
+            }.bind(this)
+        });
+    }
+
     render() {
 
         let selectOptions = this.state.albums.map(function(album, index) {
@@ -79,6 +114,7 @@ class Albums extends Component {
         if (this.state.albums.length > 0) {
             albumsDiv =
                 <div>
+                    <button onClick={this.onAddSelectedPhotosToAlbum.bind(this)}>Add to album</button>
                     <select defaultValue={this.state.albums[0].name} id="albums" onChange={this.onAlbumSelected.bind(this)}>{selectOptions}</select>
                 </div>
         }
