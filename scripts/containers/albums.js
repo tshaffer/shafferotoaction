@@ -26,6 +26,7 @@ class Albums extends Component {
 
     getAlbums() {
         this.albums = [];
+        this.albumsByName = {};
 
         const url = "http://localhost:3000/";
         const getAlbumsUrl = url + "getAlbums";
@@ -37,12 +38,14 @@ class Albums extends Component {
             success: function(result) {
                 console.log("getAlbums successful");
                 result.Albums.forEach(function(album, index){
-                    let albumObj = { name: album.name, id: index};
-                    self.albums.push(albumObj);
+                    self.albums.push(album);
+                    self.albumsByName[album.name] = album;
                 });
                 this.setState({albums: self.albums});
                 this.props.updateAlbums(self.state.albums);
-                this.selectedAlbum = self.state.albums[0].name;
+                if (self.state.albums.length > 0) {
+                    this.selectedAlbum = self.state.albums[0];
+                }
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log("errors retrieving albums in getAlbums");
@@ -59,10 +62,10 @@ class Albums extends Component {
 
     onAlbumSelected(event) {
         console.log("onAlbumSelected invoked");
-        this.selectedAlbum = event.target.value;
-        console.log("this.selectedAlbum = " + this.selectedAlbum);
+        const selectedAlbumName = event.target.value;
+        this.selectedAlbum = this.albumsByName[selectedAlbumName];
+        console.log("this.selectedAlbum = " + this.selectedAlbum.name);
     }
-
 
     render() {
 
