@@ -32,11 +32,12 @@ class PhotoGrid extends Component {
             self.photosById[photo.dbId] = photo;
 
             return (
-                <li className="flex-item photoThumbsDiv" key={photo.dbId}>
+                <li className="flex-item photoThumbsDiv thumbLi" key={photo.dbId}>
                     <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width={photo.width}
                          height={photo.height}
                          onClick={() => self.props.selectPhoto(photo)}
                     />
+                    <input type="checkbox" className="thumbSelector"></input>
                 </li>
             );
         });

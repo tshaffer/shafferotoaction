@@ -71,6 +71,11 @@ class Photos extends Component {
         });
     }
 
+    handleCreateAlbum(albumName) {
+        console.log("handleCreateAlbum invoked");
+        console.log("albumName", albumName);
+    }
+
     handleQueryPhotos(querySpec) {
         console.log("handleQueryPhotos invoked");
         console.log("querySpec=" + querySpec);
@@ -157,11 +162,12 @@ class Photos extends Component {
                 </div>
 
                 <div className="metadata">
-                    <PhotoDetail onQueryPhotos={this.handleQueryPhotos.bind(this)}/>
+                    <PhotoDetail onCreateAlbum={this.handleCreateAlbum.bind(this)} onQueryPhotos={this.handleQueryPhotos.bind(this)} />
                 </div>
             </div>
         );
     }
+    
 }
 
 function mapStateToProps(state) {

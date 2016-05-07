@@ -23,3 +23,11 @@ export function updateTags(tags) {
         payload: tags
     }
 }
+
+export function createAlbum(albumName) {
+    console.log("create album", albumName);
+    return {
+        type: "CREATE_ALBUM",
+        payload: albumName
+    }
+}

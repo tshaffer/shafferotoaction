@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import Metadata from '../components/metadata';
 import Search from '../components/search';
+import Albums from '../containers/albums';
 
 class PhotoDetail extends Component {
 
@@ -15,6 +16,7 @@ class PhotoDetail extends Component {
             <div>
                 <Metadata selectedPhoto = {this.props.photo}/>
                 <Search onQueryPhotos={this.props.onQueryPhotos} selectedPhoto = {this.props.photo}/>
+                <Albums onCreateAlbum={this.props.onCreateAlbum}/>
             </div>
         );
     }
