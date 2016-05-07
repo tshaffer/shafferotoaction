@@ -74,6 +74,23 @@ class Photos extends Component {
     handleCreateAlbum(albumName) {
         console.log("handleCreateAlbum invoked");
         console.log("albumName", albumName);
+
+        const url = "http://localhost:3000/";
+        const createAlbumUrl = url + "createAlbum";
+
+        const query = { albumName: albumName };
+
+        $.get({
+            url: createAlbumUrl,
+            data: query,
+            success: function(data) {
+                console.log("handleCreateAlbum: success");
+                const albumId = data.albumId;
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log("error creating album in handleCreateAlbum");
+            }.bind(this)
+        });
     }
 
     handleQueryPhotos(querySpec) {

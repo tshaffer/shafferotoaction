@@ -18,7 +18,6 @@ class Albums extends Component {
     }
 
     createAlbum() {
-        debugger;
         console.log("addAlbum");
         var albumName = "album1";
         this.props.onCreateAlbum(albumName);
@@ -41,6 +40,7 @@ function mapStateToProps(state) {
 
 
 function mapDispatchToProps(dispatch) {
+    // it's not clear to me what these parameters correspond to
     return bindActionCreators({ createAlbum: createAlbum }, dispatch);
 }
 
