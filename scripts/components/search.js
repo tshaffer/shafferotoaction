@@ -307,7 +307,7 @@ class Search extends Component {
                 </div>
 
                 <div id="search">
-                    <button type="button" onClick={this.search.bind(this)} className="mediumFont">Search</button>
+                    <button type="button" onClick={this.search.bind(this)} className="smallFont">Search</button>
                 </div>
 
             </div>
