@@ -98,7 +98,7 @@ class Photos extends Component {
             ratio = width / height;
         }
 
-        photo.height = 108;
+        photo.height = 220;
         photo.width = ratio * photo.height;
 
         let dateTaken = dbPhoto.dateTaken;
