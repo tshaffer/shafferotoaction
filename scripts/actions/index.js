@@ -24,10 +24,19 @@ export function updateTags(tags) {
     }
 }
 
-export function createAlbum(albumName) {
-    console.log("create album", albumName);
+// export function createAlbum(albumName) {
+//     console.log("create album", albumName);
+//     return {
+//         type: "CREATE_ALBUM",
+//         payload: albumName
+//     }
+// }
+
+export function updateAlbums(albums) {
+    console.log("the albums have been updated.");
     return {
-        type: "CREATE_ALBUM",
-        payload: albumName
+        type: "ALBUMS_UPDATED",
+        payload: albums
     }
 }
+

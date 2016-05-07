@@ -321,9 +321,7 @@ function mapStateToProps(state) {
     };
 }
 
-// Anything returned from this function will end up as props on the PhotoGrid container
 function mapDispatchToProps(dispatch) {
-    // Whenever selectPhoto is called, the result should be passed to all of our reducers
     return bindActionCreators({ updateTags: updateTags }, dispatch);
 }
 
