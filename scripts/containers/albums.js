@@ -114,8 +114,9 @@ class Albums extends Component {
 
 function mapStateToProps(state) {
     return {
-        albums: state.albums,
-        selectedPhotos: state.selectedPhotos
+        albums: state.albums
+        // albums: state.albums,
+        // selectedPhotos: state.selectedPhotos
     };
 }
 

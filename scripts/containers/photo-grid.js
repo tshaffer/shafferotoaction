@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectPhoto } from '../actions/index';
 import { updateSelectedPhotos } from '../actions/index';
-// import { updatePhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class PhotoGrid extends Component {
@@ -13,11 +12,9 @@ class PhotoGrid extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // photos: [],
-            // selectedPhoto: {}
-            selectedPhotos: {}
         };
         this.photosById = {};
+        this.selectedPhotos = {};
     }
 
     componentDidMount() {
@@ -27,14 +24,23 @@ class PhotoGrid extends Component {
     togglePhotoSelection(photo) {
         console.log("togglePhotoSelection");
 
-        let selectedPhotos = this.state.selectedPhotos;
-        if (selectedPhotos.hasOwnProperty(photo.dbId)) {
-            delete selectedPhotos[photo.dbId];
+        if (this.selectedPhotos.hasOwnProperty(photo.dbId)) {
+            delete this.selectedPhotos[photo.dbId];
         }
         else {
-            selectedPhotos[photo.dbId] = photo;
+            this.selectedPhotos[photo.dbId] = photo;
         }
+
+        let selectedPhotos = {};
+
+        for (var property in this.selectedPhotos) {
+            if (this.selectedPhotos.hasOwnProperty(property)) {
+                selectedPhotos[property] = this.selectedPhotos[property];
+            }
+        }
+
         this.props.updateSelectedPhotos(selectedPhotos);
+        this.selectedPhotos = selectedPhotos;
     }
 
     getDayOfPhotoNodes(dayOfPhotos) {
