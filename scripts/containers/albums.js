@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 // import {createAlbum} from '../index';
 import {updateAlbums} from '../actions/index';
+import { updatePhotos } from '../actions/index';
 
 class Albums extends Component {
 
@@ -67,6 +68,63 @@ class Albums extends Component {
         console.log("this.selectedAlbum = " + this.selectedAlbum.name);
     }
 
+    // TODO - duplicate code with photos.js
+
+    getPhotoFromDBPhoto (dbPhoto) {
+
+        let photo = {};
+
+        photo.dbId = dbPhoto.id;
+        photo.url = dbPhoto.url;
+        photo.thumbUrl = dbPhoto.thumbUrl;
+        photo.orientation = dbPhoto.orientation;
+        photo.title = dbPhoto.title;
+
+        let width = dbPhoto.width;
+        let height = dbPhoto.height;
+
+        let ratio = null;
+        if (photo.orientation == 6) {
+            ratio = height / width;
+        }
+        else {
+            ratio = width / height;
+        }
+
+        photo.height = 220;
+        photo.width = ratio * photo.height;
+
+        let dateTaken = dbPhoto.dateTaken;
+        let dt = new Date(dateTaken);
+        // photo.dateTaken = dt.toString("M/d/yyyy HH:mm");
+        photo.dateTaken = dt.toString("M/d/yyyy hh:mm tt");
+
+        photo.tagList = "";
+        dbPhoto.tags.forEach(function(tag) {
+            photo.tagList += tag + ", ";
+        });
+        photo.tagList = photo.tagList.substring(0, photo.tagList.length - 2);
+
+        photo.dbPhoto = dbPhoto;
+
+        return photo;
+    }
+
+    updatePhotos(newDBPhotos) {
+
+        var self = this;
+
+        let photos = [];
+
+        newDBPhotos.forEach(function(dbPhoto){
+
+            let photo = self.getPhotoFromDBPhoto(dbPhoto);
+            photos.push(photo);
+        });
+
+        return photos;
+    }
+
     onShowAlbum(event) {
         console.log("onShowAlbum invoked");
 
@@ -80,16 +138,16 @@ class Albums extends Component {
         $.get({
             url: getPhotosInAlbumUrl,
             data: payload,
-            success: function(result) {
+            success: function(data) {
                 console.log("getPhotosInAlbum successful");
-                var photosInAlbum = result.photos;
+                let photosInAlbum = this.updatePhotos(data.photos);
+                this.props.updatePhotos(photosInAlbum);
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log("error in getPhotosInAlbum");
                 // console.error(getPhotosInAlbumUrl, status, err.toString());
             }.bind(this)
         });
-
     }
 
     onAddSelectedPhotosToAlbum(event) {
@@ -191,7 +249,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     // it's not clear to me what these parameters correspond to
     // return bindActionCreators({createAlbum: createAlbum}, dispatch);
-    return bindActionCreators({updateAlbums: updateAlbums}, dispatch);
+    return bindActionCreators({updateAlbums: updateAlbums, updatePhotos: updatePhotos}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Albums);
