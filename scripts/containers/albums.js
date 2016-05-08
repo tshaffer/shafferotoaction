@@ -43,8 +43,7 @@ class Albums extends Component {
                     self.albumsByName[album.name] = album;
                 });
                 this.setState({albums: self.albums});
-                // this.props.updateAlbums(self.state.albums);
-                this.props.updateAlbums(self.albums);
+                this.props.updateAlbums(self.state.albums);
                 if (self.state.albums.length > 0) {
                     this.selectedAlbum = self.state.albums[0];
                 }
@@ -57,9 +56,23 @@ class Albums extends Component {
     }
     
     createAlbum() {
+        var self = this;
+
         var albumName = this.state.albumName;
         console.log("addAlbum", albumName);
-        this.props.onCreateAlbum(albumName);
+        var promise = this.props.onCreateAlbum(albumName);
+        promise.then(function(data) {
+            // TODO
+            // onCreateAlbum adds an album to the database but doesn't do anything with redux
+            // initial implemention, update list of albums here and invoke redux method.
+            // future implementation - update list of albums as part of creating an album
+            // debugger;
+            // TODO - spread operator creates a new arrays but the members of the new array are the same as the members of the old array
+            var newAlbums = new Array(...self.state.albums);
+            var album = { "name": data.album.name, "id": data.album._id, "photoIds": data.album.photoIds }
+            newAlbums.push(album);
+            self.props.updateAlbums(newAlbums);
+        })
     }
 
     onAlbumSelected(event) {
@@ -245,8 +258,7 @@ class Albums extends Component {
 
 function mapStateToProps(state) {
     return {
-        // albums: state.albums
-        // albums: state.albums,
+        albums: state.albums
         // selectedPhotos: state.selectedPhotos
     };
 }

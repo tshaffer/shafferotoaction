@@ -80,16 +80,20 @@ class Photos extends Component {
 
         const query = { albumName: albumName };
 
-        $.get({
-            url: createAlbumUrl,
-            data: query,
-            success: function(data) {
-                console.log("handleCreateAlbum: success");
-                const albumId = data.albumId;
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log("error creating album in handleCreateAlbum");
-            }.bind(this)
+        return new Promise(function (resolve, reject) {
+            $.get({
+                url: createAlbumUrl,
+                data: query,
+                success: function(data) {
+                    console.log("handleCreateAlbum: success");
+                    // const albumId = data.albumId;
+                    resolve(data);
+                }.bind(this),
+                error: function(xhr, status, err) {
+                    console.log("error creating album in handleCreateAlbum");
+                    reject();
+                }.bind(this)
+            });
         });
     }
 
