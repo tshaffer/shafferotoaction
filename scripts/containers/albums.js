@@ -43,7 +43,8 @@ class Albums extends Component {
                     self.albumsByName[album.name] = album;
                 });
                 this.setState({albums: self.albums});
-                this.props.updateAlbums(self.state.albums);
+                // this.props.updateAlbums(self.state.albums);
+                this.props.updateAlbums(self.albums);
                 if (self.state.albums.length > 0) {
                     this.selectedAlbum = self.state.albums[0];
                 }
@@ -187,7 +188,12 @@ class Albums extends Component {
 
     render() {
 
-        let selectOptions = this.state.albums.map(function(album, index) {
+        // let selectOptions = this.state.albums.map(function(album, index) {
+        var currentAlbums = [];
+        if (this.props.albums != undefined) {
+            currentAlbums = this.props.albums;
+        }
+        let selectOptions = currentAlbums.map(function(album, index) {
             return (
                 <option value={album.name} key={album.id}>{album.name}</option>
             );
@@ -239,7 +245,7 @@ class Albums extends Component {
 
 function mapStateToProps(state) {
     return {
-        albums: state.albums
+        // albums: state.albums
         // albums: state.albums,
         // selectedPhotos: state.selectedPhotos
     };

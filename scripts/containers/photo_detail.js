@@ -22,6 +22,7 @@ class PhotoDetail extends Component {
                 <Albums
                     onCreateAlbum={this.props.onCreateAlbum}
                     selectedPhotos = {this.props.selectedPhotos}
+                    albums = {this.props.albums}
                 />
             </div>
         );
@@ -32,7 +33,8 @@ class PhotoDetail extends Component {
 function mapStateToProps(state) {
     return {
         photo: state.activePhoto,
-        selectedPhotos: state.selectedPhotos
+        selectedPhotos: state.selectedPhotos,
+        albums: state.albums
     };
 }
 
