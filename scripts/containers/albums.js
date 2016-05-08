@@ -67,6 +67,31 @@ class Albums extends Component {
         console.log("this.selectedAlbum = " + this.selectedAlbum.name);
     }
 
+    onShowAlbum(event) {
+        console.log("onShowAlbum invoked");
+
+        const url = "http://localhost:3000/";
+        const getPhotosInAlbumUrl = url + "getPhotosInAlbum";
+
+        var self = this;
+
+        const payload = { albumId: this.selectedAlbum.id };
+
+        $.get({
+            url: getPhotosInAlbumUrl,
+            data: payload,
+            success: function(result) {
+                console.log("getPhotosInAlbum successful");
+                var photosInAlbum = result.photos;
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log("error in getPhotosInAlbum");
+                // console.error(getPhotosInAlbumUrl, status, err.toString());
+            }.bind(this)
+        });
+
+    }
+
     onAddSelectedPhotosToAlbum(event) {
 
         let photosToAdd = [];
@@ -114,17 +139,21 @@ class Albums extends Component {
         if (this.state.albums.length > 0) {
             albumsDiv =
                 <div>
-                    <button onClick={this.onAddSelectedPhotosToAlbum.bind(this)}>Add to album</button>
                     <select defaultValue={this.state.albums[0].name} id="albums" onChange={this.onAlbumSelected.bind(this)}>{selectOptions}</select>
+
+                    <br/>
+                    <button onClick={this.onAddSelectedPhotosToAlbum.bind(this)}>Add to album</button>
+                    <button onClick={this.onShowAlbum.bind(this)}>Show album</button>
                 </div>
         }
 
-        let selectedPhotosCount = 0;
-        if (this.props.selectedPhotos != undefined) {
-            // debugger;
-            selectedPhotosCount = Object.keys(this.props.selectedPhotos).length;
-            console.log("selected photos is now defined", selectedPhotosCount);
-        }
+        // let selectedPhotosCount = 0;
+        // if (this.props.selectedPhotos != undefined) {
+        //     // debugger;
+        //     selectedPhotosCount = Object.keys(this.props.selectedPhotos).length;
+        //     console.log("selected photos is now defined", selectedPhotosCount);
+        // }
+        // <p>number of selected photos is: {selectedPhotosCount}</p>
 
         const divStyle = {
             margin: '5px'
@@ -144,7 +173,6 @@ class Albums extends Component {
 
                 {albumsDiv}
 
-                <p>number of selected photos is: {selectedPhotosCount}</p>
 
             </div>
         );
