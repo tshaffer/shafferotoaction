@@ -28,14 +28,6 @@ export function updatePhotos(photos) {
     }
 }
 
-export function updateTags(tags) {
-    console.log("the tags have been updated.");
-    return {
-        type: "TAGS_UPDATED",
-        payload: tags
-    }
-}
-
 // export function createAlbum(albumName) {
 //     console.log("create album", albumName);
 //     return {
@@ -57,10 +49,7 @@ export function fetchTags() {
 
     const url = "http://localhost:3000/";
     const fetchTagsUrl = url + "getTags";
-
     const request = axios.get(fetchTagsUrl);
-
-    console.log("request:", request);
 
     return {
         type: FETCH_TAGS,

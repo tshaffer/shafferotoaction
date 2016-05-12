@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchTags } from '../actions/index';
-import { updateTags } from '../actions/index';
 
 class Search extends Component {
 
@@ -39,40 +38,8 @@ class Search extends Component {
         // let formattedDate = today.getFullYear().toString() + "-0" + (today.getMonth() + 1).toString() + "-" + today.getDate().toString();
         let formattedDate = this.formatDate(today);
         this.setState({dateValue: formattedDate});
-
-        // retrieve tags from db
-        // this.getTags();
     }
-
-    getTags() {
-
-        // this.tags = [];
-        //
-        // const url = "http://localhost:3000/";
-        // const getTagsUrl = url + "getTags";
-        //
-        // var self = this;
-        //
-        // $.get({
-        //     url: getTagsUrl,
-        //     success: function(result) {
-        //         console.log("getTags successful");
-        //         result.Tags.forEach(function(tag, index){
-        //             let tagObj = { name: tag.label, id: index};
-        //             self.tags.push(tagObj);
-        //             // self.state.tags.push(tagObj);
-        //         });
-        //         this.setState({tags: self.tags});
-        //         this.props.updateTags(self.state.tags);
-        //         self.addedTag = self.state.tags[0].name;
-        //     }.bind(this),
-        //     error: function(xhr, status, err) {
-        //         console.log("errors retrieving tags in getTags");
-        //         console.error(getTagsUrl, status, err.toString());
-        //     }.bind(this)
-        // });
-    }
-
+    
     prependZero(str) {
         if (str.length == 1) {
             return "0" + str;
@@ -226,22 +193,16 @@ class Search extends Component {
 
     render () {
 
-        // let tags = [];
-        // tags.push({ name: "Mom", id: 0}, { name: "Rachel", id: 1}, { name: "Sam", id: 2}, {name: "Joel", id: 3});
-        // this.addedTag = tags[0].name;
-
         let selectOptions = null;
 
         if (this.props.tags) {
-            selectOptions = this.props.tags.map(function(tag, index, theTags) {
-                console.log("tag:"+ tag.label + ", index:"+ index);
+            selectOptions = this.props.tags.map(function(tag, index) {
                 return (
-                    <option value={tag.label} key={index}>{tag.label}</option>
+                    <option value={tag.name} key={tag.id}>{tag.name}</option>
                 );
             });
         }
 
-        // <select defaultValue={this.props.tags[0].name} id="tags" onChange={this.onTagSelected.bind(this)}>{selectOptions}</select>
         let tagsDiv = <div></div>;
         if (this.props.tags && this.props.tags.length > 0) {
             tagsDiv =
@@ -334,8 +295,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ updateTags: updateTags, fetchTags: fetchTags }, dispatch);
+    return bindActionCreators({ fetchTags: fetchTags }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
-// export default connect(null, mapDispatchToProps)(Search);
