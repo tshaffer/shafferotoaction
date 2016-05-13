@@ -20,6 +20,11 @@ class Albums extends Component {
     }
 
     componentWillMount() {
+
+        this.albums = [];
+        this.albumsByName = {};
+        this.selectedAlbum = null;
+
         console.log("albums: componentWillMount invoked");
         this.props.fetchAlbums();
     }
@@ -208,9 +213,19 @@ class Albums extends Component {
 
     render() {
 
+        var self = this;
+
         // let selectOptions = this.state.albums.map(function(album, index) {
         var currentAlbums = [];
-        if (this.props.albums != undefined) {
+        if (this.props.albums) {
+            if (this.props.albums.length > 0) {
+                if (Object.keys(this.albumsByName).length === 0 && this.albumsByName.constructor === Object) {
+                    this.props.albums.forEach(function(album, index) {
+                        self.albumsByName[album.name] = album;
+                    });
+                    self.selectedAlbum = self.props.albums[0];
+                }
+            }
             currentAlbums = this.props.albums;
         }
         let selectOptions = currentAlbums.map(function(album, index) {
