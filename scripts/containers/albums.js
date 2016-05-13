@@ -5,8 +5,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 // import {createAlbum} from '../index';
-import {updateAlbums} from '../actions/index';
+// import {updateAlbums} from '../actions/index';
 import { updatePhotos } from '../actions/index';
+import { fetchAlbums } from '../actions/index';
 
 class Albums extends Component {
 
@@ -18,44 +19,50 @@ class Albums extends Component {
         };
     }
 
+    componentWillMount() {
+        console.log("albums: componentWillMount invoked");
+        this.props.fetchAlbums();
+    }
+
     componentDidMount() {
         console.log("albums componentDidMount invoked");
-        
-        // retrieve albums from db
-        this.getAlbums();
     }
 
-    getAlbums() {
-        this.albums = [];
-        this.albumsByName = {};
-
-        const url = "http://localhost:3000/";
-        const getAlbumsUrl = url + "getAlbums";
-
-        var self = this;
-
-        $.get({
-            url: getAlbumsUrl,
-            success: function(result) {
-                console.log("getAlbums successful");
-                result.Albums.forEach(function(album, index){
-                    self.albums.push(album);
-                    self.albumsByName[album.name] = album;
-                });
-                this.setState({albums: self.albums});
-                this.props.updateAlbums(self.state.albums);
-                if (self.state.albums.length > 0) {
-                    this.selectedAlbum = self.state.albums[0];
-                }
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log("errors retrieving albums in getAlbums");
-                console.error(getAlbumsUrl, status, err.toString());
-            }.bind(this)
-        });
-    }
+    // getAlbums() {
+    //     this.albums = [];
+    //     this.albumsByName = {};
+    //
+    //     const url = "http://localhost:3000/";
+    //     const getAlbumsUrl = url + "getAlbums";
+    //
+    //     var self = this;
+    //
+    //     $.get({
+    //         url: getAlbumsUrl,
+    //         success: function(result) {
+    //             console.log("getAlbums successful");
+    //             result.Albums.forEach(function(album, index){
+    //                 self.albums.push(album);
+    //                 self.albumsByName[album.name] = album;
+    //             });
+    //             this.setState({albums: self.albums});
+    //             this.props.updateAlbums(self.state.albums);
+    //             if (self.state.albums.length > 0) {
+    //                 this.selectedAlbum = self.state.albums[0];
+    //             }
+    //         }.bind(this),
+    //         error: function(xhr, status, err) {
+    //             console.log("errors retrieving albums in getAlbums");
+    //             console.error(getAlbumsUrl, status, err.toString());
+    //         }.bind(this)
+    //     });
+    // }
     
     createAlbum() {
+
+        // state.albums?
+        debugger;
+
         var self = this;
 
         var albumName = this.state.albumName;
@@ -213,10 +220,10 @@ class Albums extends Component {
         });
 
         let albumsDiv = <div></div>;
-        if (this.state.albums.length > 0) {
+        if (this.props.albums.length > 0) {
             albumsDiv =
                 <div>
-                    <select defaultValue={this.state.albums[0].name} id="albums" onChange={this.onAlbumSelected.bind(this)}>{selectOptions}</select>
+                    <select defaultValue={this.props.albums[0].name} id="albums" onChange={this.onAlbumSelected.bind(this)}>{selectOptions}</select>
 
                     <br/>
                     <button onClick={this.onAddSelectedPhotosToAlbum.bind(this)}>Add to album</button>
@@ -267,7 +274,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     // it's not clear to me what these parameters correspond to
     // return bindActionCreators({createAlbum: createAlbum}, dispatch);
-    return bindActionCreators({updateAlbums: updateAlbums, updatePhotos: updatePhotos}, dispatch);
+    return bindActionCreators({fetchAlbums: fetchAlbums, updatePhotos: updatePhotos}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Albums);

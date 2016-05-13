@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+export const FETCH_ALBUMS = 'FETCH_ALBUMS';
 export const FETCH_TAGS = 'FETCH_TAGS';
 
 export function selectPhoto(photo) {
@@ -36,14 +37,17 @@ export function updatePhotos(photos) {
 //     }
 // }
 
-export function updateAlbums(albums) {
-    console.log("the albums have been updated.");
-    return {
-        type: "ALBUMS_UPDATED",
-        payload: albums
-    }
-}
+export function fetchAlbums() {
 
+    const url = "http://localhost:3000/";
+    const fetchAlbumsUrl = url + "getAlbums";
+    const request = axios.get(fetchAlbumsUrl);
+
+    return {
+        type: FETCH_ALBUMS,
+        payload: request
+    };
+}
 
 export function fetchTags() {
 

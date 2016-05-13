@@ -1,11 +1,13 @@
 /**
  * Created by tedshaffer on 5/8/16.
  */
-export default function(state = null, action) {
+import { FETCH_ALBUMS } from '../actions/index';
+
+export default function(state = [], action) {
 
     switch (action.type) {
-        case 'ALBUMS_UPDATED':
-            return action.payload;
+        case FETCH_ALBUMS:
+            return action.payload.data.Albums;
     }
 
     return state;
