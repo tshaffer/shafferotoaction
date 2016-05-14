@@ -102,6 +102,7 @@ export function addPhotosToAlbum(albumId, photosToAdd) {
         params: payload
     });
 
+    // action below is currently unused
     return {
         type: ADD_PHOTOS_TO_ALBUM,
         payload: request
