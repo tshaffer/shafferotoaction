@@ -4,10 +4,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-// import {createAlbum} from '../index';
 // import {updateAlbums} from '../actions/index';
-import { updatePhotos } from '../actions/index';
 import { fetchAlbums } from '../actions/index';
+import { createAlbum } from '../actions/index';
 import { getPhotosInAlbum } from '../actions/index';
 
 class Albums extends Component {
@@ -36,26 +35,25 @@ class Albums extends Component {
 
     createAlbum() {
 
-        // state.albums?
-        debugger;
-
-        var self = this;
-
-        var albumName = this.state.albumName;
-        console.log("addAlbum", albumName);
-        var promise = this.props.onCreateAlbum(albumName);
-        promise.then(function(data) {
-            // TODO
-            // onCreateAlbum adds an album to the database but doesn't do anything with redux
-            // initial implemention, update list of albums here and invoke redux method.
-            // future implementation - update list of albums as part of creating an album
-            // debugger;
-            // TODO - spread operator creates a new arrays but the members of the new array are the same as the members of the old array
-            var newAlbums = new Array(...self.state.albums);
-            var album = { "name": data.album.name, "id": data.album._id, "photoIds": data.album.photoIds }
-            newAlbums.push(album);
-            self.props.updateAlbums(newAlbums);
-        })
+        this.props.createAlbum(this.state.albumName);
+        
+        // var self = this;
+        //
+        // var albumName = this.state.albumName;
+        // console.log("addAlbum", albumName);
+        // var promise = this.props.onCreateAlbum(albumName);
+        // promise.then(function(data) {
+        //     // TODO
+        //     // onCreateAlbum adds an album to the database but doesn't do anything with redux
+        //     // initial implemention, update list of albums here and invoke redux method.
+        //     // future implementation - update list of albums as part of creating an album
+        //     // debugger;
+        //     // TODO - spread operator creates a new arrays but the members of the new array are the same as the members of the old array
+        //     var newAlbums = new Array(...self.state.albums);
+        //     var album = { "name": data.album.name, "id": data.album._id, "photoIds": data.album.photoIds }
+        //     newAlbums.push(album);
+        //     self.props.updateAlbums(newAlbums);
+        // })
     }
 
     onAlbumSelected(event) {
@@ -107,45 +105,9 @@ class Albums extends Component {
         return photo;
     }
 
-    updatePhotos(newDBPhotos) {
-
-        var self = this;
-
-        let photos = [];
-
-        newDBPhotos.forEach(function(dbPhoto){
-
-            let photo = self.getPhotoFromDBPhoto(dbPhoto);
-            photos.push(photo);
-        });
-
-        return photos;
-    }
-
     onShowAlbum(event) {
         console.log("onShowAlbum invoked");
         this.props.getPhotosInAlbum(this.selectedAlbum.id);
-
-        // const url = "http://localhost:3000/";
-        // const getPhotosInAlbumUrl = url + "getPhotosInAlbum";
-        //
-        // var self = this;
-        //
-        // const payload = { albumId: this.selectedAlbum.id };
-        //
-        // $.get({
-        //     url: getPhotosInAlbumUrl,
-        //     data: payload,
-        //     success: function(data) {
-        //         console.log("getPhotosInAlbum successful");
-        //         let photosInAlbum = this.updatePhotos(data.photos);
-        //         this.props.updatePhotos(photosInAlbum);
-        //     }.bind(this),
-        //     error: function(xhr, status, err) {
-        //         console.log("error in getPhotosInAlbum");
-        //         // console.error(getPhotosInAlbumUrl, status, err.toString());
-        //     }.bind(this)
-        // });
     }
 
     onAddSelectedPhotosToAlbum(event) {
@@ -261,7 +223,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     // it's not clear to me what these parameters correspond to
     // return bindActionCreators({createAlbum: createAlbum}, dispatch);
-    return bindActionCreators({getPhotosInAlbum: getPhotosInAlbum, fetchAlbums: fetchAlbums, updatePhotos: updatePhotos}, dispatch);
+    return bindActionCreators({getPhotosInAlbum: getPhotosInAlbum, fetchAlbums: fetchAlbums, createAlbum: createAlbum}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Albums);

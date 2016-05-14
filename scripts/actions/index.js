@@ -20,14 +20,6 @@ export function updateSelectedPhotos(selectedPhotos) {
     }
 }
 
-export function updatePhotos(photos) {
-    console.log("the photos have been updated.");
-    return {
-        type: 'PHOTOS_UPDATED',
-        payload: photos
-    }
-}
-
 // export function createAlbum(albumName) {
 //     console.log("create album", albumName);
 //     return {
@@ -84,6 +76,22 @@ export function fetchAlbums() {
     const url = "http://localhost:3000/";
     const fetchAlbumsUrl = url + "getAlbums";
     const request = axios.get(fetchAlbumsUrl);
+
+    return {
+        type: FETCH_ALBUMS,
+        payload: request
+    };
+}
+
+export function createAlbum(albumName) {
+
+    const url = "http://localhost:3000/";
+    const createAlbumUrl = url + "createAlbum";
+    const payload = { albumName: albumName };
+
+    const request = axios.get(createAlbumUrl, {
+        params: payload
+    });
 
     return {
         type: FETCH_ALBUMS,

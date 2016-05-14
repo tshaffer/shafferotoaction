@@ -3,7 +3,6 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updatePhotos } from '../actions/index';
 import { queryPhotos } from '../actions/index';
 
 // import { fetchPhotos } from '../actions/index';
@@ -50,37 +49,39 @@ class Photos extends Component {
         this.props.queryPhotos(query);
     }
 
-    handleCreateAlbum(albumName) {
-        console.log("handleCreateAlbum invoked");
-        console.log("albumName", albumName);
-
-        const url = "http://localhost:3000/";
-        const createAlbumUrl = url + "createAlbum";
-
-        const query = { albumName: albumName };
-
-        return new Promise(function (resolve, reject) {
-            $.get({
-                url: createAlbumUrl,
-                data: query,
-                success: function(data) {
-                    console.log("handleCreateAlbum: success");
-                    // const albumId = data.albumId;
-                    resolve(data);
-                }.bind(this),
-                error: function(xhr, status, err) {
-                    console.log("error creating album in handleCreateAlbum");
-                    reject();
-                }.bind(this)
-            });
-        });
-    }
+    // handleCreateAlbum(albumName) {
+    //     console.log("handleCreateAlbum invoked");
+    //     console.log("albumName", albumName);
+    //
+    //     const url = "http://localhost:3000/";
+    //     const createAlbumUrl = url + "createAlbum";
+    //
+    //     const query = { albumName: albumName };
+    //
+    //     return new Promise(function (resolve, reject) {
+    //         $.get({
+    //             url: createAlbumUrl,
+    //             data: query,
+    //             success: function(data) {
+    //                 console.log("handleCreateAlbum: success");
+    //                 // const albumId = data.albumId;
+    //                 resolve(data);
+    //             }.bind(this),
+    //             error: function(xhr, status, err) {
+    //                 console.log("error creating album in handleCreateAlbum");
+    //                 reject();
+    //             }.bind(this)
+    //         });
+    //     });
+    // }
 
     handleQueryPhotos(querySpec) {
         console.log("handleQueryPhotos invoked");
         console.log("querySpec=" + querySpec);
         this.queryPhotos(querySpec);
     }
+
+    // onCreateAlbum={this.handleCreateAlbum.bind(this)}
 
     render () {
 
@@ -92,7 +93,6 @@ class Photos extends Component {
 
                 <div className="metadata">
                     <PhotoDetail 
-                        onCreateAlbum={this.handleCreateAlbum.bind(this)} 
                         onQueryPhotos={this.handleQueryPhotos.bind(this)}
                     />
                 </div>
@@ -102,7 +102,7 @@ class Photos extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ queryPhotos: queryPhotos, updatePhotos: updatePhotos }, dispatch);
+    return bindActionCreators({ queryPhotos: queryPhotos }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Photos);
