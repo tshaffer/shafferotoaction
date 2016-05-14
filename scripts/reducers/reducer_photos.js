@@ -1,12 +1,19 @@
 /**
  * Created by tedshaffer on 5/1/16.
  */
-export default function(state = null, action) {
+import { FETCH_PHOTOS } from '../actions/index';
+
+export default function(state = [], action) {
 
     switch (action.type) {
-        case 'PHOTOS_UPDATED':
-            return action.payload;
+        case FETCH_PHOTOS:
+            return action.payload.data.photos;
     }
+
+    // switch (action.type) {
+    //     case 'PHOTOS_UPDATED':
+    //         return action.payload;
+    // }
 
     // if (state == null) {
     //     return [

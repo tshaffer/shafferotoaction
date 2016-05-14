@@ -33,36 +33,6 @@ class Albums extends Component {
         console.log("albums componentDidMount invoked");
     }
 
-    // getAlbums() {
-    //     this.albums = [];
-    //     this.albumsByName = {};
-    //
-    //     const url = "http://localhost:3000/";
-    //     const getAlbumsUrl = url + "getAlbums";
-    //
-    //     var self = this;
-    //
-    //     $.get({
-    //         url: getAlbumsUrl,
-    //         success: function(result) {
-    //             console.log("getAlbums successful");
-    //             result.Albums.forEach(function(album, index){
-    //                 self.albums.push(album);
-    //                 self.albumsByName[album.name] = album;
-    //             });
-    //             this.setState({albums: self.albums});
-    //             this.props.updateAlbums(self.state.albums);
-    //             if (self.state.albums.length > 0) {
-    //                 this.selectedAlbum = self.state.albums[0];
-    //             }
-    //         }.bind(this),
-    //         error: function(xhr, status, err) {
-    //             console.log("errors retrieving albums in getAlbums");
-    //             console.error(getAlbumsUrl, status, err.toString());
-    //         }.bind(this)
-    //     });
-    // }
-    
     createAlbum() {
 
         // state.albums?

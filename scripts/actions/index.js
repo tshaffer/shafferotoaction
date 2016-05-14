@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+export const FETCH_PHOTOS = 'FETCH_PHOTOS';
 export const FETCH_ALBUMS = 'FETCH_ALBUMS';
 export const FETCH_TAGS = 'FETCH_TAGS';
 
@@ -36,6 +37,19 @@ export function updatePhotos(photos) {
 //         payload: albumName
 //     }
 // }
+
+export function fetchPhotos() {
+
+    const url = "http://localhost:3000/";
+    const fetchPhotosUrl = url + "getPhotos";
+    const request = axios.get(fetchPhotosUrl);
+
+    return {
+        type: FETCH_PHOTOS,
+        payload: request
+    };
+}
+
 
 export function fetchAlbums() {
 

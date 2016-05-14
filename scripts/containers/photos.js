@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updatePhotos } from '../actions/index';
+import { fetchPhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 import PhotoGrid from '../containers/photo-grid';
@@ -28,47 +29,84 @@ class Photos extends Component {
         window.addEventListener('resize', this.handleResize.bind(this));
     }
 
-    updatePhotos(newDBPhotos) {
-
-        var self = this;
-
-        let photos = [];
-
-        newDBPhotos.forEach(function(dbPhoto){
-
-            let photo = self.getPhotoFromDBPhoto(dbPhoto);
-            photos.push(photo);
-        });
-
-        if (photos.length > 0) {
-            this.setState({photos: photos});
-            this.setState({selectedPhoto: photos[0]});
-        }
+    componentWillMount() {
+        console.log("photos: componentWillMount invoked");
+        this.props.fetchPhotos();
     }
+
+    componentDidMount() {
+        console.log("photos.js::componentDidMount invoked");
+
+        // // $scope.photoPageContainerHeight = window.innerHeight - 100;
+        window.addEventListener('resize', this.handleResize.bind(this));
+        let divStyle = {
+            height: window.innerHeight - 100
+        };
+        this.setState({divStyle: divStyle});
+
+        // const url = "http://localhost:3000/";
+        // const getPhotosUrl = url + "getPhotos";
+        //
+        // $.get({
+        //     url: getPhotosUrl,
+        //     dataType: 'json',
+        //     cache: false,
+        //     success: function(data) {
+        //         console.log("number of photos retrieved is: " + data.photos.length.toString());
+        //         this.updatePhotos(data.photos);
+        //         this.props.updatePhotos(this.state.photos);
+        //     }.bind(this),
+        //     error: function(xhr, status, err) {
+        //         console.log("errors retrieving photos");
+        //         console.error(getPhotosUrl, status, err.toString());
+        //     }.bind(this)
+        // });
+
+    }
+
+    // updatePhotos(newDBPhotos) {
+    //
+    //     var self = this;
+    //
+    //     let photos = [];
+    //
+    //     newDBPhotos.forEach(function(dbPhoto){
+    //
+    //         let photo = self.getPhotoFromDBPhoto(dbPhoto);
+    //         photos.push(photo);
+    //     });
+    //
+    //     if (photos.length > 0) {
+    //         this.setState({photos: photos});
+    //         this.setState({selectedPhoto: photos[0]});
+    //     }
+    // }
 
     queryPhotos (querySpec) {
 
-        const url = "http://localhost:3000/";
-        const queryPhotosUrl = url + "queryPhotos";
+        debugger;
 
-        // TODO - passing the object would have worked except the server code is expecting a string, so the following nonsense was done for backwards compatibility
-        // let query = { querySpec: querySpec };
-        let queryStr = JSON.stringify(querySpec);
-        let query = { querySpec: queryStr };
-
-        $.get({
-            url: queryPhotosUrl,
-            data: query,
-            success: function(data) {
-                console.log("queryPhotos: number of photos retrieved is: " + data.photos.length.toString());
-                this.updatePhotos(data.photos);
-                this.props.updatePhotos(this.state.photos);
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log("errors retrieving photos in queryPhotos");
-                console.error(getPhotosUrl, status, err.toString());
-            }.bind(this)
-        });
+        // const url = "http://localhost:3000/";
+        // const queryPhotosUrl = url + "queryPhotos";
+        //
+        // // TODO - passing the object would have worked except the server code is expecting a string, so the following nonsense was done for backwards compatibility
+        // // let query = { querySpec: querySpec };
+        // let queryStr = JSON.stringify(querySpec);
+        // let query = { querySpec: queryStr };
+        //
+        // $.get({
+        //     url: queryPhotosUrl,
+        //     data: query,
+        //     success: function(data) {
+        //         console.log("queryPhotos: number of photos retrieved is: " + data.photos.length.toString());
+        //         this.updatePhotos(data.photos);
+        //         this.props.updatePhotos(this.state.photos);
+        //     }.bind(this),
+        //     error: function(xhr, status, err) {
+        //         console.log("errors retrieving photos in queryPhotos");
+        //         console.error(getPhotosUrl, status, err.toString());
+        //     }.bind(this)
+        // });
     }
 
     handleCreateAlbum(albumName) {
@@ -143,43 +181,30 @@ class Photos extends Component {
         return photo;
     }
 
-    componentDidMount() {
-
-        console.log("photos.js::componentDidMount invoked");
-
-        // // $scope.photoPageContainerHeight = window.innerHeight - 100;
-        window.addEventListener('resize', this.handleResize.bind(this));
-        let divStyle = {
-            height: window.innerHeight - 100
-        };
-        this.setState({divStyle: divStyle});
-
-        const url = "http://localhost:3000/";
-        const getPhotosUrl = url + "getPhotos";
-
-        $.get({
-            url: getPhotosUrl,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                console.log("number of photos retrieved is: " + data.photos.length.toString());
-                this.updatePhotos(data.photos);
-                this.props.updatePhotos(this.state.photos);
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log("errors retrieving photos");
-                console.error(getPhotosUrl, status, err.toString());
-            }.bind(this)
-        });
-
-    }
-
     render () {
+
+        var self = this;
+        var photosFromDB = [];
+
+        if (this.props.photos && this.props.photos.length > 0 && this.state.photos.length == 0) {
+            this.props.photos.forEach(function(dbPhoto, index) {
+                let photo = self.getPhotoFromDBPhoto(dbPhoto);
+                photosFromDB.push(photo);
+            });
+
+            this.setState({ photos: photosFromDB });
+
+            // if (photos.length > 0) {
+            //     this.setState({selectedPhoto: photos[0]});
+            // }
+        }
+
+        // <PhotoGrid photos = {this.props.photos}/>
 
         return (
             <div className="photoPageContainer" style={this.state.divStyle}>
                 <div className="photosDiv">
-                    <PhotoGrid photos = {this.props.photos}/>
+                    <PhotoGrid photos = {this.state.photos}/>
                 </div>
 
                 <div className="metadata">
@@ -191,7 +216,6 @@ class Photos extends Component {
             </div>
         );
     }
-    
 }
 
 function mapStateToProps(state) {
@@ -204,7 +228,7 @@ function mapStateToProps(state) {
 // Anything returned from this function will end up as props on the PhotoGrid container
 function mapDispatchToProps(dispatch) {
     // Whenever selectPhoto is called, the result should be passed to all of our reducers
-    return bindActionCreators({ updatePhotos: updatePhotos }, dispatch);
+    return bindActionCreators({ fetchPhotos: fetchPhotos, updatePhotos: updatePhotos }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Photos);
