@@ -8,6 +8,7 @@ import {bindActionCreators} from 'redux';
 import { fetchAlbums } from '../actions/index';
 import { createAlbum } from '../actions/index';
 import { getPhotosInAlbum } from '../actions/index';
+import { addPhotosToAlbum } from '../actions/index';
 
 class Albums extends Component {
 
@@ -106,24 +107,7 @@ class Albums extends Component {
 
         if (photosToAdd.length == 0) return;
 
-        const url = "http://localhost:3000/";
-        const addPhotosToAlbumUrl = url + "addPhotosToAlbum";
-
-        var self = this;
-
-        const payload = { albumId: this.selectedAlbum.id, photos: photosToAdd };
-
-        $.get({
-            url: addPhotosToAlbumUrl,
-            data: payload,
-            success: function(result) {
-                console.log("addPhotosToAlbum successful");
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log("error in addPhotosToAlbum");
-                console.error(addPhotosToAlbumUrl, status, err.toString());
-            }.bind(this)
-        });
+        this.props.addPhotosToAlbum(this.selectedAlbum.id, photosToAdd);
     }
 
     render() {
@@ -161,14 +145,6 @@ class Albums extends Component {
                 </div>
         }
 
-        // let selectedPhotosCount = 0;
-        // if (this.props.selectedPhotos != undefined) {
-        //     // debugger;
-        //     selectedPhotosCount = Object.keys(this.props.selectedPhotos).length;
-        //     console.log("selected photos is now defined", selectedPhotosCount);
-        // }
-        // <p>number of selected photos is: {selectedPhotosCount}</p>
-
         const divStyle = {
             margin: '5px'
         };
@@ -201,7 +177,7 @@ function mapStateToProps(state) {
 
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({getPhotosInAlbum: getPhotosInAlbum, fetchAlbums: fetchAlbums, createAlbum: createAlbum}, dispatch);
+    return bindActionCreators({getPhotosInAlbum: getPhotosInAlbum, fetchAlbums: fetchAlbums, createAlbum: createAlbum, addPhotosToAlbum: addPhotosToAlbum }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Albums);

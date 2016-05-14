@@ -3,6 +3,7 @@ import axios from 'axios';
 export const FETCH_PHOTOS = 'FETCH_PHOTOS';
 export const FETCH_ALBUMS = 'FETCH_ALBUMS';
 export const FETCH_TAGS = 'FETCH_TAGS';
+export const ADD_PHOTOS_TO_ALBUM = 'ADD_PHOTOS_TO_ALBUM';
 
 export function selectPhoto(photo) {
     // console.log("a photo has been selected.", photo.title);
@@ -19,14 +20,6 @@ export function updateSelectedPhotos(selectedPhotos) {
         payload: selectedPhotos
     }
 }
-
-// export function createAlbum(albumName) {
-//     console.log("create album", albumName);
-//     return {
-//         type: "CREATE_ALBUM",
-//         payload: albumName
-//     }
-// }
 
 export function fetchPhotos() {
 
@@ -95,6 +88,22 @@ export function createAlbum(albumName) {
 
     return {
         type: FETCH_ALBUMS,
+        payload: request
+    };
+}
+
+export function addPhotosToAlbum(albumId, photosToAdd) {
+
+    const url = "http://localhost:3000/";
+    const addPhotosToAlbumUrl = url + "addPhotosToAlbum";
+    const payload = { albumId: albumId, photos: photosToAdd };
+
+    const request = axios.get(addPhotosToAlbumUrl, {
+        params: payload
+    });
+
+    return {
+        type: ADD_PHOTOS_TO_ALBUM,
         payload: request
     };
 }
