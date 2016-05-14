@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { queryPhotos } from '../actions/index';
 
-// import { fetchPhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 import PhotoGrid from '../containers/photo-grid';
@@ -49,40 +48,12 @@ class Photos extends Component {
         this.props.queryPhotos(query);
     }
 
-    // handleCreateAlbum(albumName) {
-    //     console.log("handleCreateAlbum invoked");
-    //     console.log("albumName", albumName);
-    //
-    //     const url = "http://localhost:3000/";
-    //     const createAlbumUrl = url + "createAlbum";
-    //
-    //     const query = { albumName: albumName };
-    //
-    //     return new Promise(function (resolve, reject) {
-    //         $.get({
-    //             url: createAlbumUrl,
-    //             data: query,
-    //             success: function(data) {
-    //                 console.log("handleCreateAlbum: success");
-    //                 // const albumId = data.albumId;
-    //                 resolve(data);
-    //             }.bind(this),
-    //             error: function(xhr, status, err) {
-    //                 console.log("error creating album in handleCreateAlbum");
-    //                 reject();
-    //             }.bind(this)
-    //         });
-    //     });
-    // }
-
     handleQueryPhotos(querySpec) {
         console.log("handleQueryPhotos invoked");
         console.log("querySpec=" + querySpec);
         this.queryPhotos(querySpec);
     }
-
-    // onCreateAlbum={this.handleCreateAlbum.bind(this)}
-
+    
     render () {
 
         return (
