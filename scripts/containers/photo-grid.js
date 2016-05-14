@@ -28,6 +28,10 @@ class PhotoGrid extends Component {
         console.log("photo-grid: componentDidMount invoked");
     }
 
+    displayFullSizePhoto(photo) {
+        console.log("displayFullSizePhoto");
+    }
+
     togglePhotoSelection(photo) {
         console.log("togglePhotoSelection");
 
@@ -64,9 +68,11 @@ class PhotoGrid extends Component {
                     <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width={photo.width}
                          height={photo.height}
                          onClick={() => self.props.selectPhoto(photo)}
+                         onDoubleClick={() => self.displayFullSizePhoto(photo)}
                     />
                     <input id={photo.dbId} type="checkbox" className="thumbSelector"
-                           onClick={() => self.togglePhotoSelection(photo)}>
+                           onClick={() => self.togglePhotoSelection(photo)}
+                    >
                     </input>
                 </li>
             );
