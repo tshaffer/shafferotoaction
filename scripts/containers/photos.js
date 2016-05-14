@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updatePhotos } from '../actions/index';
+import { queryPhotos } from '../actions/index';
+
 // import { fetchPhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
@@ -84,7 +86,10 @@ class Photos extends Component {
 
     queryPhotos (querySpec) {
 
-        debugger;
+        let queryStr = JSON.stringify(querySpec);
+        let query = { querySpec: queryStr };
+
+        this.props.queryPhotos(query);
 
         // const url = "http://localhost:3000/";
         // const queryPhotosUrl = url + "queryPhotos";
@@ -141,45 +146,45 @@ class Photos extends Component {
         this.queryPhotos(querySpec);
     }
 
-    getPhotoFromDBPhoto (dbPhoto) {
-
-        let photo = {};
-
-        photo.dbId = dbPhoto.id;
-        photo.url = dbPhoto.url;
-        photo.thumbUrl = dbPhoto.thumbUrl;
-        photo.orientation = dbPhoto.orientation;
-        photo.title = dbPhoto.title;
-
-        let width = dbPhoto.width;
-        let height = dbPhoto.height;
-
-        let ratio = null;
-        if (photo.orientation == 6) {
-            ratio = height / width;
-        }
-        else {
-            ratio = width / height;
-        }
-
-        photo.height = 220;
-        photo.width = ratio * photo.height;
-
-        let dateTaken = dbPhoto.dateTaken;
-        let dt = new Date(dateTaken);
-        // photo.dateTaken = dt.toString("M/d/yyyy HH:mm");
-        photo.dateTaken = dt.toString("M/d/yyyy hh:mm tt");
-
-        photo.tagList = "";
-        dbPhoto.tags.forEach(function(tag) {
-            photo.tagList += tag + ", ";
-        });
-        photo.tagList = photo.tagList.substring(0, photo.tagList.length - 2);
-
-        photo.dbPhoto = dbPhoto;
-
-        return photo;
-    }
+    // getPhotoFromDBPhoto (dbPhoto) {
+    //
+    //     let photo = {};
+    //
+    //     photo.dbId = dbPhoto.id;
+    //     photo.url = dbPhoto.url;
+    //     photo.thumbUrl = dbPhoto.thumbUrl;
+    //     photo.orientation = dbPhoto.orientation;
+    //     photo.title = dbPhoto.title;
+    //
+    //     let width = dbPhoto.width;
+    //     let height = dbPhoto.height;
+    //
+    //     let ratio = null;
+    //     if (photo.orientation == 6) {
+    //         ratio = height / width;
+    //     }
+    //     else {
+    //         ratio = width / height;
+    //     }
+    //
+    //     photo.height = 220;
+    //     photo.width = ratio * photo.height;
+    //
+    //     let dateTaken = dbPhoto.dateTaken;
+    //     let dt = new Date(dateTaken);
+    //     // photo.dateTaken = dt.toString("M/d/yyyy HH:mm");
+    //     photo.dateTaken = dt.toString("M/d/yyyy hh:mm tt");
+    //
+    //     photo.tagList = "";
+    //     dbPhoto.tags.forEach(function(tag) {
+    //         photo.tagList += tag + ", ";
+    //     });
+    //     photo.tagList = photo.tagList.substring(0, photo.tagList.length - 2);
+    //
+    //     photo.dbPhoto = dbPhoto;
+    //
+    //     return photo;
+    // }
 
     render () {
 
@@ -228,7 +233,7 @@ class Photos extends Component {
 // Anything returned from this function will end up as props on the PhotoGrid container
 function mapDispatchToProps(dispatch) {
     // Whenever selectPhoto is called, the result should be passed to all of our reducers
-    return bindActionCreators({ updatePhotos: updatePhotos }, dispatch);
+    return bindActionCreators({ queryPhotos: queryPhotos, updatePhotos: updatePhotos }, dispatch);
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Photos);
