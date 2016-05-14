@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updatePhotos } from '../actions/index';
-import { fetchPhotos } from '../actions/index';
+// import { fetchPhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 import PhotoGrid from '../containers/photo-grid';
@@ -29,11 +29,11 @@ class Photos extends Component {
         window.addEventListener('resize', this.handleResize.bind(this));
     }
 
-    componentWillMount() {
-        console.log("photos: componentWillMount invoked");
-        this.props.fetchPhotos();
-    }
-
+    // componentWillMount() {
+    //     console.log("photos: componentWillMount invoked");
+    //     this.props.fetchPhotos();
+    // }
+    //
     componentDidMount() {
         console.log("photos.js::componentDidMount invoked");
 
@@ -186,25 +186,25 @@ class Photos extends Component {
         var self = this;
         var photosFromDB = [];
 
-        if (this.props.photos && this.props.photos.length > 0 && this.state.photos.length == 0) {
-            this.props.photos.forEach(function(dbPhoto, index) {
-                let photo = self.getPhotoFromDBPhoto(dbPhoto);
-                photosFromDB.push(photo);
-            });
-
-            this.setState({ photos: photosFromDB });
-
-            // if (photos.length > 0) {
-            //     this.setState({selectedPhoto: photos[0]});
-            // }
-        }
+        // if (this.props.photos && this.props.photos.length > 0 && this.state.photos.length == 0) {
+        //     this.props.photos.forEach(function(dbPhoto, index) {
+        //         let photo = self.getPhotoFromDBPhoto(dbPhoto);
+        //         photosFromDB.push(photo);
+        //     });
+        //
+        //     this.setState({ photos: photosFromDB });
+        //
+        //     // if (photos.length > 0) {
+        //     //     this.setState({selectedPhoto: photos[0]});
+        //     // }
+        // }
 
         // <PhotoGrid photos = {this.props.photos}/>
 
         return (
             <div className="photoPageContainer" style={this.state.divStyle}>
                 <div className="photosDiv">
-                    <PhotoGrid photos = {this.state.photos}/>
+                    <PhotoGrid/>
                 </div>
 
                 <div className="metadata">
@@ -218,17 +218,18 @@ class Photos extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    // Whatever is returned will show up as props inside of PhotoGrid
-    return {
-        photos: state.photos
-    };
-}
-
+// function mapStateToProps(state) {
+//     // Whatever is returned will show up as props inside of PhotoGrid
+//     return {
+//         photos: state.photos
+//     };
+// }
+//
 // Anything returned from this function will end up as props on the PhotoGrid container
 function mapDispatchToProps(dispatch) {
     // Whenever selectPhoto is called, the result should be passed to all of our reducers
-    return bindActionCreators({ fetchPhotos: fetchPhotos, updatePhotos: updatePhotos }, dispatch);
+    return bindActionCreators({ updatePhotos: updatePhotos }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Photos);
+// export default connect(mapStateToProps, mapDispatchToProps)(Photos);
+export default connect(null, mapDispatchToProps)(Photos);

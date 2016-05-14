@@ -6,15 +6,22 @@ import { connect } from 'react-redux';
 import { selectPhoto } from '../actions/index';
 import { updateSelectedPhotos } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import { fetchPhotos } from '../actions/index';
 
 class PhotoGrid extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            photos: []
         };
         this.photosById = {};
         this.selectedPhotos = {};
+    }
+
+    componentWillMount() {
+        console.log("photo-grid: componentWillMount invoked");
+        this.props.fetchPhotos();
     }
 
     componentDidMount() {
@@ -116,15 +123,69 @@ class PhotoGrid extends Component {
         return monthLabel;
     }
 
+    getPhotoFromDBPhoto (dbPhoto) {
+
+        let photo = {};
+
+        photo.dbId = dbPhoto.id;
+        photo.url = dbPhoto.url;
+        photo.thumbUrl = dbPhoto.thumbUrl;
+        photo.orientation = dbPhoto.orientation;
+        photo.title = dbPhoto.title;
+
+        let width = dbPhoto.width;
+        let height = dbPhoto.height;
+
+        let ratio = null;
+        if (photo.orientation == 6) {
+            ratio = height / width;
+        }
+        else {
+            ratio = width / height;
+        }
+
+        photo.height = 220;
+        photo.width = ratio * photo.height;
+
+        let dateTaken = dbPhoto.dateTaken;
+        let dt = new Date(dateTaken);
+        // photo.dateTaken = dt.toString("M/d/yyyy HH:mm");
+        photo.dateTaken = dt.toString("M/d/yyyy hh:mm tt");
+
+        photo.tagList = "";
+        dbPhoto.tags.forEach(function(tag) {
+            photo.tagList += tag + ", ";
+        });
+        photo.tagList = photo.tagList.substring(0, photo.tagList.length - 2);
+
+        photo.dbPhoto = dbPhoto;
+
+        return photo;
+    }
+
     render() {
 
         let self = this;
+
+        let photosFromReducer = [];
+
+        // figure out a way to not do this each time render is invoked
+        if (this.props.photos && this.props.photos.length > 0) {
+            this.props.photos.forEach(function(dbPhoto, index) {
+                let photo = self.getPhotoFromDBPhoto(dbPhoto);
+                photosFromReducer.push(photo);
+            });
+
+            // if (photos.length > 0) {
+            //     this.setState({selectedPhoto: photos[0]});
+            // }
+        }
 
         let lastYear = -1;
         let lastMonth = -1;
         let lastDate = -1;
 
-        let photosFromReducer = this.props.photos || [];
+        // let photosFromReducer = this.props.photos || [];
 
         // need an array of items where each item in the array is
         // - <p> with the date, followed by a
@@ -200,10 +261,18 @@ class PhotoGrid extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    // Whatever is returned will show up as props inside of PhotoGrid
+    return {
+        photos: state.photos
+    };
+}
+
+
 // Anything returned from this function will end up as props on the PhotoGrid container
 function mapDispatchToProps(dispatch) {
     // Whenever selectPhoto is called, the result should be passed to all of our reducers
-    return bindActionCreators({ selectPhoto: selectPhoto, updateSelectedPhotos: updateSelectedPhotos }, dispatch);
+    return bindActionCreators({ fetchPhotos: fetchPhotos, selectPhoto: selectPhoto, updateSelectedPhotos: updateSelectedPhotos }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(PhotoGrid);
+export default connect(mapStateToProps, mapDispatchToProps)(PhotoGrid);
