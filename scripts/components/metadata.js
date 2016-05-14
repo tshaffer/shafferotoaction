@@ -11,6 +11,10 @@ class Metadata extends Component {
         };
     }
 
+    componentWillMount() {
+        $(function () { $('#jstree_demo_div').jstree(); });
+    }
+
     componentDidMount() {
         console.log("metadata componentDidMount invoked");
     }
@@ -32,8 +36,98 @@ class Metadata extends Component {
             this.selectedPhotoDateTaken = dt.toString("M/d/yyyy hh:mm tt");
 
         }
+
+        // let photoFolder1 = {
+        //     text: "photoFolder1"
+        // };
+        //
+        // let photoFolder2 = {
+        //     text: "photoFolder2"
+        // };
+        //
+        // let photoFolder3 = {
+        //     text: "photoFolder3"
+        // };
+
+        // let photoTree =
+        //     $('#using_json').jstree({ 'core' : {
+        //         'data' : [
+        //             'Simple root node',
+        //             {
+        //                 'text' : 'Root node 2',
+        //                 'state' : {
+        //                     'opened' : true,
+        //                     'selected' : true
+        //                 },
+        //                 'children' : [
+        //                     { 'text' : 'Child 1' },
+        //                     'Child 2'
+        //                 ]
+        //             }
+        //         ]
+        //     } })
+        // let photoTree =
+        //     <ul>
+        //         <li>Root node 1
+        //             <ul>
+        //                 <li id="child_node_1">Child node 1</li>
+        //                 <li>Child node 2</li>
+        //             </ul>
+        //         </li>
+        //         <li>Root node 2</li>
+        //     </ul>
+
+        // let photoTree =
+        //     $('#jstree_demo_div').jstree({ 'core' : {
+        //         'data' : [
+        //             'Simple root node pizza',
+        //             {
+        //                 'text' : 'Root node 2',
+        //                 'state' : {
+        //                     'opened' : true,
+        //                     'selected' : true
+        //                 },
+        //                 'children' : [
+        //                     { 'text' : 'Child 1' },
+        //                     'Child 2'
+        //                 ]
+        //             }
+        //         ]
+        //     }})
+
+        //
+        // let photoTree =
+        //     $('#jstree_demo_div').jstree({ 'core' : photoData
+        //     })
+
+
+        // <div id="jstree_demo_div">
+        //     {photoTree}
+        // </div>
+
+        // let photoData = { 'data': ['Simple root node pizza']};
+        let photoData = { 'data' : [
+            'Simple root node pizza',
+            {
+                'text' : 'Root node 2',
+                'state' : {
+                    'opened' : true,
+                    'selected' : true
+                },
+                'children' : [
+                    { 'text' : 'Child 1' },
+                    'Child 2'
+                ]
+            }
+        ]}
+
+        $('#jstree_demo_div').jstree({ 'core' : photoData })
+
         return (
             <div>
+                <div id="jstree_demo_div">
+                </div>
+
                 <h4>Metadata</h4>
 
                 <div className="photoMetadata">
