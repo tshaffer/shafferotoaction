@@ -13,6 +13,15 @@ body {
 .photosDiv {
     flex: 3;
     overflow-y: scroll;
+    position: relative;
+}
+
+#openCloseIcon {
+    top: 3px;
+    position: absolute;
+    right: 5px;
+    /*position: fixed;*/
+    /*right: 375px;*/
 }
 
 .flex-container {
@@ -99,11 +108,6 @@ body {
     font-size: 12px;
     position: relative;
     top: -10px;
-}
-
-.hrAboveTags {
-    height:20pt;
-    visibility:hidden;
 }
 
 .metadata {

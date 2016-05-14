@@ -16,7 +16,8 @@ class Photos extends Component {
         super(props);
         this.state = {
             photos: [],
-            divStyle: {}
+            divStyle: {},
+            sideBarOpen: true
         };
     }
 
@@ -53,20 +54,33 @@ class Photos extends Component {
         console.log("querySpec=" + querySpec);
         this.queryPhotos(querySpec);
     }
-    
+
+    handleToggleOpenCloseSidebar() {
+        this.setState({sideBarOpen: !this.state.sideBarOpen});
+    }
+
     render () {
+
+        let containerTag = <div></div>
+        if (this.state.sideBarOpen) {
+            containerTag =
+                <div className="metadata">
+                    <PhotoDetail
+                        onQueryPhotos={this.handleQueryPhotos.bind(this)}
+                    />
+                </div>
+        }
 
         return (
             <div className="photoPageContainer" style={this.state.divStyle}>
                 <div className="photosDiv">
-                    <PhotoGrid/>
-                </div>
-
-                <div className="metadata">
-                    <PhotoDetail 
-                        onQueryPhotos={this.handleQueryPhotos.bind(this)}
+                    <PhotoGrid
+                        onToggleOpenCloseSidebar={this.handleToggleOpenCloseSidebar.bind(this)}
+                        sideBarOpen = {this.state.sideBarOpen}
                     />
                 </div>
+
+                {containerTag}
             </div>
         );
     }
