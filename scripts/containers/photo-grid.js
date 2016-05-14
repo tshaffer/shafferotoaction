@@ -74,6 +74,8 @@ class PhotoGrid extends Component {
                            onClick={() => self.togglePhotoSelection(photo)}
                     >
                     </input>
+                    <br/>
+                    <span className="tagsInPhotos">{photo.tagList}</span>
                 </li>
             );
         });
