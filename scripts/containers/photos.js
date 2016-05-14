@@ -18,7 +18,6 @@ class Photos extends Component {
         super(props);
         this.state = {
             photos: [],
-            selectedPhoto: null,
             divStyle: {}
         };
     }
@@ -31,11 +30,6 @@ class Photos extends Component {
         window.addEventListener('resize', this.handleResize.bind(this));
     }
 
-    // componentWillMount() {
-    //     console.log("photos: componentWillMount invoked");
-    //     this.props.fetchPhotos();
-    // }
-    //
     componentDidMount() {
         console.log("photos.js::componentDidMount invoked");
 
@@ -46,43 +40,7 @@ class Photos extends Component {
         };
         this.setState({divStyle: divStyle});
 
-        // const url = "http://localhost:3000/";
-        // const getPhotosUrl = url + "getPhotos";
-        //
-        // $.get({
-        //     url: getPhotosUrl,
-        //     dataType: 'json',
-        //     cache: false,
-        //     success: function(data) {
-        //         console.log("number of photos retrieved is: " + data.photos.length.toString());
-        //         this.updatePhotos(data.photos);
-        //         this.props.updatePhotos(this.state.photos);
-        //     }.bind(this),
-        //     error: function(xhr, status, err) {
-        //         console.log("errors retrieving photos");
-        //         console.error(getPhotosUrl, status, err.toString());
-        //     }.bind(this)
-        // });
-
     }
-
-    // updatePhotos(newDBPhotos) {
-    //
-    //     var self = this;
-    //
-    //     let photos = [];
-    //
-    //     newDBPhotos.forEach(function(dbPhoto){
-    //
-    //         let photo = self.getPhotoFromDBPhoto(dbPhoto);
-    //         photos.push(photo);
-    //     });
-    //
-    //     if (photos.length > 0) {
-    //         this.setState({photos: photos});
-    //         this.setState({selectedPhoto: photos[0]});
-    //     }
-    // }
 
     queryPhotos (querySpec) {
 
@@ -90,28 +48,6 @@ class Photos extends Component {
         let query = { querySpec: queryStr };
 
         this.props.queryPhotos(query);
-
-        // const url = "http://localhost:3000/";
-        // const queryPhotosUrl = url + "queryPhotos";
-        //
-        // // TODO - passing the object would have worked except the server code is expecting a string, so the following nonsense was done for backwards compatibility
-        // // let query = { querySpec: querySpec };
-        // let queryStr = JSON.stringify(querySpec);
-        // let query = { querySpec: queryStr };
-        //
-        // $.get({
-        //     url: queryPhotosUrl,
-        //     data: query,
-        //     success: function(data) {
-        //         console.log("queryPhotos: number of photos retrieved is: " + data.photos.length.toString());
-        //         this.updatePhotos(data.photos);
-        //         this.props.updatePhotos(this.state.photos);
-        //     }.bind(this),
-        //     error: function(xhr, status, err) {
-        //         console.log("errors retrieving photos in queryPhotos");
-        //         console.error(getPhotosUrl, status, err.toString());
-        //     }.bind(this)
-        // });
     }
 
     handleCreateAlbum(albumName) {
@@ -146,65 +82,7 @@ class Photos extends Component {
         this.queryPhotos(querySpec);
     }
 
-    // getPhotoFromDBPhoto (dbPhoto) {
-    //
-    //     let photo = {};
-    //
-    //     photo.dbId = dbPhoto.id;
-    //     photo.url = dbPhoto.url;
-    //     photo.thumbUrl = dbPhoto.thumbUrl;
-    //     photo.orientation = dbPhoto.orientation;
-    //     photo.title = dbPhoto.title;
-    //
-    //     let width = dbPhoto.width;
-    //     let height = dbPhoto.height;
-    //
-    //     let ratio = null;
-    //     if (photo.orientation == 6) {
-    //         ratio = height / width;
-    //     }
-    //     else {
-    //         ratio = width / height;
-    //     }
-    //
-    //     photo.height = 220;
-    //     photo.width = ratio * photo.height;
-    //
-    //     let dateTaken = dbPhoto.dateTaken;
-    //     let dt = new Date(dateTaken);
-    //     // photo.dateTaken = dt.toString("M/d/yyyy HH:mm");
-    //     photo.dateTaken = dt.toString("M/d/yyyy hh:mm tt");
-    //
-    //     photo.tagList = "";
-    //     dbPhoto.tags.forEach(function(tag) {
-    //         photo.tagList += tag + ", ";
-    //     });
-    //     photo.tagList = photo.tagList.substring(0, photo.tagList.length - 2);
-    //
-    //     photo.dbPhoto = dbPhoto;
-    //
-    //     return photo;
-    // }
-
     render () {
-
-        var self = this;
-        var photosFromDB = [];
-
-        // if (this.props.photos && this.props.photos.length > 0 && this.state.photos.length == 0) {
-        //     this.props.photos.forEach(function(dbPhoto, index) {
-        //         let photo = self.getPhotoFromDBPhoto(dbPhoto);
-        //         photosFromDB.push(photo);
-        //     });
-        //
-        //     this.setState({ photos: photosFromDB });
-        //
-        //     // if (photos.length > 0) {
-        //     //     this.setState({selectedPhoto: photos[0]});
-        //     // }
-        // }
-
-        // <PhotoGrid photos = {this.props.photos}/>
 
         return (
             <div className="photoPageContainer" style={this.state.divStyle}>
@@ -223,18 +101,8 @@ class Photos extends Component {
     }
 }
 
-// function mapStateToProps(state) {
-//     // Whatever is returned will show up as props inside of PhotoGrid
-//     return {
-//         photos: state.photos
-//     };
-// }
-//
-// Anything returned from this function will end up as props on the PhotoGrid container
 function mapDispatchToProps(dispatch) {
-    // Whenever selectPhoto is called, the result should be passed to all of our reducers
     return bindActionCreators({ queryPhotos: queryPhotos, updatePhotos: updatePhotos }, dispatch);
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Photos);
 export default connect(null, mapDispatchToProps)(Photos);

@@ -222,26 +222,9 @@ class PhotoGrid extends Component {
             daysOfPhotos.push(dayOfPhotos);
         }
 
-        // let photoNodes = photosFromReducer.map(function(photo) {
-        //
-        //     self.thumbUrl = "http://localhost:3000/photos/" + photo.thumbUrl.replace(" ", "%20");
-        //     self.photosById[photo.dbId] = photo;
-        //
-        //     return (
-        //         <li className="flex-item photoThumbsDiv" key={photo.dbId}>
-        //             <img id={photo.dbId} src={self.thumbUrl} className="thumbImg" width={photo.width}
-        //                  height={photo.height}
-        //                  onClick={() => self.props.selectPhoto(photo)}
-        //             />
-        //         </li>
-        //     );
-        // });
-
         let daysOfPhotosNodes = daysOfPhotos.map(function(dayOfPhotos) {
 
-            // let formattedDateTime = dayOfPhoto.dateTaken.toString("yyyy-MM-dd hh:mm tt");
             let formattedDateTime = self.getMonthLabel(dayOfPhotos.dateTaken) + " " + dayOfPhotos.dateTaken.toString("dd, yyyy");
-            // let formattedDateTime = dayOfPhotos.dateTaken.toString("yyyy-MM-dd");
             return (
                 <div className="dayOfPhotosDiv" key={Math.random().toString()}>
                     <p className="dayOfPhotosLabel">{formattedDateTime}</p>
@@ -262,16 +245,13 @@ class PhotoGrid extends Component {
 }
 
 function mapStateToProps(state) {
-    // Whatever is returned will show up as props inside of PhotoGrid
     return {
         photos: state.photos
     };
 }
 
 
-// Anything returned from this function will end up as props on the PhotoGrid container
 function mapDispatchToProps(dispatch) {
-    // Whenever selectPhoto is called, the result should be passed to all of our reducers
     return bindActionCreators({ fetchPhotos: fetchPhotos, selectPhoto: selectPhoto, updateSelectedPhotos: updateSelectedPhotos }, dispatch);
 }
 
