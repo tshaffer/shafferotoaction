@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Metadata from '../components/metadata';
 import Search from '../components/search';
 import Albums from '../containers/albums';
+import Tags from '../containers/tags';
 
 class PhotoDetail extends Component {
 
@@ -21,6 +22,9 @@ class PhotoDetail extends Component {
                 />
                 <Albums
                     onCreateAlbum={this.props.onCreateAlbum}
+                    selectedPhotos = {this.props.selectedPhotos}
+                />
+                <Tags
                     selectedPhotos = {this.props.selectedPhotos}
                 />
             </div>

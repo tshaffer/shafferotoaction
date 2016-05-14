@@ -4,6 +4,8 @@ export const FETCH_PHOTOS = 'FETCH_PHOTOS';
 export const FETCH_ALBUMS = 'FETCH_ALBUMS';
 export const FETCH_TAGS = 'FETCH_TAGS';
 export const ADD_PHOTOS_TO_ALBUM = 'ADD_PHOTOS_TO_ALBUM';
+export const ADD_TAG = 'ADD_TAGS';
+export const UPDATE_TAG_IN_PHOTOS = 'UPDATE_TAG_IN_PHOTOS';
 
 export function selectPhoto(photo) {
     // console.log("a photo has been selected.", photo.title);
@@ -117,6 +119,36 @@ export function fetchTags() {
 
     return {
         type: FETCH_TAGS,
+        payload: request
+    };
+}
+
+// export function addTag(tagLabel) {
+//
+//     const url = "http://localhost:3000/";
+//     const addTagUrl = url + "addTag";
+//     const request = axios.get(createAlbumUrl, {
+//         params: { tagLabel: tagLabel }
+//     });
+//
+//     return {
+//         type: FETCH_TAGS,
+//         payload: request
+//     };
+// }
+
+export function updateTagsInPhotos(photosUpdateSpec) {
+
+    const url = "http://localhost:3000/";
+    const updateTagsUrl = url + "updateTags";
+
+    const request = axios.get(updateTagsUrl, {
+        params: { photosUpdateSpec: photosUpdateSpec }
+    });
+
+    // action below is currently unused
+    return {
+        type: UPDATE_TAG_IN_PHOTOS,
         payload: request
     };
 }
