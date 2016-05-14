@@ -62,6 +62,22 @@ export function queryPhotos(query) {
     };
 }
 
+export function getPhotosInAlbum(albumId) {
+
+    const url = "http://localhost:3000/";
+    const getPhotosInAlbumUrl = url + "getPhotosInAlbum";
+    const payload = { albumId: albumId };
+
+    const request = axios.get(getPhotosInAlbumUrl, {
+        params: payload
+    });
+
+    return {
+        type: FETCH_PHOTOS,
+        payload: request
+    };
+}
+
 
 export function fetchAlbums() {
 

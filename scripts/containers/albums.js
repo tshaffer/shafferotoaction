@@ -8,6 +8,7 @@ import {bindActionCreators} from 'redux';
 // import {updateAlbums} from '../actions/index';
 import { updatePhotos } from '../actions/index';
 import { fetchAlbums } from '../actions/index';
+import { getPhotosInAlbum } from '../actions/index';
 
 class Albums extends Component {
 
@@ -123,27 +124,28 @@ class Albums extends Component {
 
     onShowAlbum(event) {
         console.log("onShowAlbum invoked");
+        this.props.getPhotosInAlbum(this.selectedAlbum.id);
 
-        const url = "http://localhost:3000/";
-        const getPhotosInAlbumUrl = url + "getPhotosInAlbum";
-
-        var self = this;
-
-        const payload = { albumId: this.selectedAlbum.id };
-
-        $.get({
-            url: getPhotosInAlbumUrl,
-            data: payload,
-            success: function(data) {
-                console.log("getPhotosInAlbum successful");
-                let photosInAlbum = this.updatePhotos(data.photos);
-                this.props.updatePhotos(photosInAlbum);
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log("error in getPhotosInAlbum");
-                // console.error(getPhotosInAlbumUrl, status, err.toString());
-            }.bind(this)
-        });
+        // const url = "http://localhost:3000/";
+        // const getPhotosInAlbumUrl = url + "getPhotosInAlbum";
+        //
+        // var self = this;
+        //
+        // const payload = { albumId: this.selectedAlbum.id };
+        //
+        // $.get({
+        //     url: getPhotosInAlbumUrl,
+        //     data: payload,
+        //     success: function(data) {
+        //         console.log("getPhotosInAlbum successful");
+        //         let photosInAlbum = this.updatePhotos(data.photos);
+        //         this.props.updatePhotos(photosInAlbum);
+        //     }.bind(this),
+        //     error: function(xhr, status, err) {
+        //         console.log("error in getPhotosInAlbum");
+        //         // console.error(getPhotosInAlbumUrl, status, err.toString());
+        //     }.bind(this)
+        // });
     }
 
     onAddSelectedPhotosToAlbum(event) {
@@ -259,7 +261,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     // it's not clear to me what these parameters correspond to
     // return bindActionCreators({createAlbum: createAlbum}, dispatch);
-    return bindActionCreators({fetchAlbums: fetchAlbums, updatePhotos: updatePhotos}, dispatch);
+    return bindActionCreators({getPhotosInAlbum: getPhotosInAlbum, fetchAlbums: fetchAlbums, updatePhotos: updatePhotos}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Albums);
